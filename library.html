@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - RetroVault</title>
+    <style>
+        /* --- FONTES MODERNAS E CLEAN --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        /* --- CONFIGURAÇÕES GERAIS (VARIÁVEIS DE COR) --- */
+        :root {
+            --background-primary: #ffffff;
+            --background-secondary: #f8fafc;
+            --background-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+        }
+
+        /* --- ESTILO MODERNO DO CORPO DA PÁGINA --- */
+        body {
+            background-color: var(--background-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        .navbar {
+            background-color: var(--background-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-primary);
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- HEADER DA PÁGINA --- */
+        .page-header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        /* --- FILTROS E BUSCA --- */
+        .filters-section {
+            padding: 2rem 0;
+            background-color: var(--background-secondary);
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            background-color: var(--background-primary);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+        }
+
+        .console-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-medium);
+            background-color: var(--background-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        /* --- GRID DE JOGOS --- */
+        .games-section {
+            padding: 2rem 0;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .game-cover {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .console-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .game-info {
+            padding: 1.25rem;
+        }
+
+        .game-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .game-saves {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        .game-date {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border-medium);
+            background-color: var(--background-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+
+        .action-btn:hover {
+            background-color: var(--background-tertiary);
+            border-color: var(--accent-primary);
+        }
+
+        .action-btn.primary {
+            background-color: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .action-btn.primary:hover {
+            background-color: #2563eb;
+        }
+
+        /* --- ESTATÍSTICAS --- */
+        .stats-section {
+            padding: 2rem 0;
+            background-color: var(--background-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--background-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* --- RODAPÉ --- */
+        .footer {
+            background-color: var(--background-tertiary);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-light);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer p {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .console-filters {
+                justify-content: center;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .game-actions {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RetroVault</a>
+            <ul class="nav-links">
+                <li><a href="library.html" class="active">Biblioteca</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="index.html#cta-section">Entrar na Fila</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Header da Página -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Sua Biblioteca</h1>
+                <p class="page-subtitle">Organize e gerencie todos os seus saves retrô em um só lugar</p>
+            </div>
+        </section>
+
+        <!-- Estatísticas -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">67</div>
+                        <div class="stat-label">Saves</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Consoles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.3GB</div>
+                        <div class="stat-label">Armazenamento</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtros e Busca -->
+        <section class="filters-section">
+            <div class="container">
+                <div class="filters-container">
+                    <div class="search-box">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input type="text" placeholder="Buscar jogos..." id="search-input">
+                    </div>
+                    <div class="console-filters">
+                        <button class="filter-btn active" data-console="all">Todos</button>
+                        <button class="filter-btn" data-console="snes">SNES</button>
+                        <button class="filter-btn" data-console="genesis">Genesis</button>
+                        <button class="filter-btn" data-console="ps1">PlayStation</button>
+                        <button class="filter-btn" data-console="n64">Nintendo 64</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Jogos -->
+        <section class="games-section">
+            <div class="container">
+                <div class="games-grid" id="games-grid">
+                    <!-- SNES Games -->
+                    <div class="game-card" data-console="snes" data-title="Chrono Trigger">
+                        <div class="game-cover">
+                            <span>Chrono Trigger</span>
+                            <div class="console-badge">SNES</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Chrono Trigger</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">3 saves</span>
+                                <span class="game-date">12 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-console="snes" data-title="Super Metroid">
+                        <div class="game-cover">
+                            <span>Super Metroid</span>
+                            <div class="console-badge">SNES</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Super Metroid</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">2 saves</span>
+                                <span class="game-date">10 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-console="snes" data-title="The Legend of Zelda">
+                        <div class="game-cover">
+                            <span>Zelda: ALTTP</span>
+                            <div class="console-badge">SNES</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">The Legend of Zelda: A Link to the Past</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">2 saves</span>
+                                <span class="game-date">08 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Genesis Games -->
+                    <div class="game-card" data-console="genesis" data-title="Sonic 3">
+                        <div class="game-cover">
+                            <span>Sonic 3 & Knuckles</span>
+                            <div class="console-badge">Genesis</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Sonic 3 & Knuckles</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">1 save</span>
+                                <span class="game-date">05 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-console="genesis" data-title="Streets of Rage">
+                        <div class="game-cover">
+                            <span>Streets of Rage 2</span>
+                            <div class="console-badge">Genesis</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Streets of Rage 2</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">1 save</span>
+                                <span class="game-date">03 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PlayStation Games -->
+                    <div class="game-card" data-console="ps1" data-title="Final Fantasy VII">
+                        <div class="game-cover">
+                            <span>Final Fantasy VII</span>
+                            <div class="console-badge">PS1</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Final Fantasy VII</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">4 saves</span>
+                                <span class="game-date">15 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-console="ps1" data-title="Metal Gear Solid">
+                        <div class="game-cover">
+                            <span>Metal Gear Solid</span>
+                            <div class="console-badge">PS1</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Metal Gear Solid</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">2 saves</span>
+                                <span class="game-date">12 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nintendo 64 Games -->
+                    <div class="game-card" data-console="n64" data-title="Super Mario 64">
+                        <div class="game-cover">
+                            <span>Super Mario 64</span>
+                            <div class="console-badge">N64</div>
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">Super Mario 64</h3>
+                            <div class="game-stats">
+                                <span class="game-saves">1 save</span>
+                                <span class="game-date">20 Jul 2025</span>
+                            </div>
+                            <div class="game-actions">
+                                <a href="game-detail.html" class="action-btn">Ver Saves</a>
+                                <button class="action-btn primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 RetroVault. Feito com amor por e para retrogamers.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacidade</a>
+                    <a href="#terms">Termos</a>
+                    <a href="#contact">Contato</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filtro de consoles
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active de todos os botões
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                // Adiciona active ao botão clicado
+                this.classList.add('active');
+                
+                const console = this.getAttribute('data-console');
+                const gameCards = document.querySelectorAll('.game-card');
+                
+                gameCards.forEach(card => {
+                    if (console === 'all' || card.getAttribute('data-console') === console) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Busca de jogos
+        document.getElementById('search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            gameCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Upload button functionality
+        document.querySelectorAll('.action-btn.primary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Funcionalidade de upload será implementada em breve!');
+            });
+        });
+    </script>
+</body>
+</html>

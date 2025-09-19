@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrono Trigger - RetroVault</title>
+    <style>
+        /* --- FONTES MODERNAS E CLEAN --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        /* --- CONFIGURAÇÕES GERAIS (VARIÁVEIS DE COR) --- */
+        :root {
+            --background-primary: #ffffff;
+            --background-secondary: #f8fafc;
+            --background-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-error: #ef4444;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+        }
+
+        /* --- ESTILO MODERNO DO CORPO DA PÁGINA --- */
+        body {
+            background-color: var(--background-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        .navbar {
+            background-color: var(--background-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+
+        /* --- HEADER DO JOGO --- */
+        .game-header {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .game-cover-large {
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .console-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .game-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .game-meta {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--background-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-medium);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--background-tertiary);
+            border-color: var(--accent-primary);
+        }
+
+        .btn-danger {
+            background-color: var(--accent-error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* --- SEÇÃO DE SAVES --- */
+        .saves-section {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .save-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-medium);
+            background-color: var(--background-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .saves-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .save-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .save-item:hover {
+            background-color: var(--background-secondary);
+        }
+
+        .save-item:last-child {
+            border-bottom: none;
+        }
+
+        .save-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: var(--radius-md);
+            background-color: var(--background-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .save-content {
+            flex: 1;
+        }
+
+        .save-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .save-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .save-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .save-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem;
+            border: 1px solid var(--border-medium);
+            background-color: var(--background-primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background-color: var(--background-tertiary);
+            border-color: var(--accent-primary);
+        }
+
+        .action-btn.download {
+            color: var(--accent-primary);
+        }
+
+        .action-btn.delete {
+            color: var(--accent-error);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* --- CARD DE INFORMAÇÕES --- */
+        .info-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+        }
+
+        .info-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        /* --- CARD DE UPLOAD --- */
+        .upload-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: 2rem 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--accent-primary);
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .upload-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            color: var(--accent-primary);
+        }
+
+        .upload-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-hint {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            background-color: var(--background-primary);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* --- RODAPÉ --- */
+        .footer {
+            background-color: var(--background-tertiary);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-light);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer p {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .game-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .game-cover-large {
+                margin: 0 auto;
+            }
+
+            .game-actions {
+                justify-content: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RetroVault</a>
+            <ul class="nav-links">
+                <li><a href="library.html">Biblioteca</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="index.html#cta-section">Entrar na Fila</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Breadcrumb -->
+        <section class="breadcrumb">
+            <div class="container">
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="library.html">Biblioteca</a></li>
+                    <li class="breadcrumb-separator">›</li>
+                    <li class="breadcrumb-item">Chrono Trigger</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Header do Jogo -->
+        <section class="game-header">
+            <div class="container">
+                <div class="game-cover-large">
+                    <span>Chrono Trigger</span>
+                    <div class="console-badge">SNES</div>
+                </div>
+                <div class="game-info">
+                    <div>
+                        <h1 class="game-title">Chrono Trigger</h1>
+                        <div class="game-meta">
+                            <span>Super Nintendo • RPG • 1995</span>
+                        </div>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-primary" onclick="openUploadModal()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                            </svg>
+                            Upload Save
+                        </button>
+                        <button class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                            </svg>
+                            Favoritar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo Principal -->
+        <section class="main-content">
+            <div class="container">
+                <!-- Seção de Saves -->
+                <div class="saves-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Saves Salvos (3)</h2>
+                        <div class="save-filters">
+                            <button class="filter-btn active" data-filter="all">Todos</button>
+                            <button class="filter-btn" data-filter="slot">Slots</button>
+                            <button class="filter-btn" data-filter="state">Save States</button>
+                        </div>
+                    </div>
+                    <ul class="saves-list">
+                        <li class="save-item" data-type="slot">
+                            <div class="save-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="save-content">
+                                <div class="save-name">Slot 1 - Final Lavos</div>
+                                <div class="save-description">Save antes da batalha final contra Lavos. Todos os personagens no nível 99.</div>
+                                <div class="save-meta">
+                                    <span>Tamanho: 8KB</span>
+                                    <span>Formato: .srm</span>
+                                    <span>Uploadado: 12 Jul 2025</span>
+                                </div>
+                            </div>
+                            <div class="save-actions">
+                                <button class="action-btn download" title="Download">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <button class="action-btn delete" title="Excluir">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="save-item" data-type="slot">
+                            <div class="save-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="save-content">
+                                <div class="save-name">Slot 2 - Meio do Jogo</div>
+                                <div class="save-description">Progresso no Reino de Guardia, após resgatar Marle.</div>
+                                <div class="save-meta">
+                                    <span>Tamanho: 8KB</span>
+                                    <span>Formato: .srm</span>
+                                    <span>Uploadado: 10 Jul 2025</span>
+                                </div>
+                            </div>
+                            <div class="save-actions">
+                                <button class="action-btn download" title="Download">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <button class="action-btn delete" title="Excluir">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="save-item" data-type="state">
+                            <div class="save-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="save-content">
+                                <div class="save-name">Save State - Nova Game+</div>
+                                <div class="save-description">Início do New Game+ com todos os itens do jogo anterior.</div>
+                                <div class="save-meta">
+                                    <span>Tamanho: 1.2MB</span>
+                                    <span>Formato: .state</span>
+                                    <span>Uploadado: 08 Jul 2025</span>
+                                </div>
+                            </div>
+                            <div class="save-actions">
+                                <button class="action-btn download" title="Download">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <button class="action-btn delete" title="Excluir">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Informações do Jogo -->
+                    <div class="info-card">
+                        <h3 class="info-title">Informações</h3>
+                        <div class="info-item">
+                            <span class="info-label">Console</span>
+                            <span class="info-value">Super Nintendo</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Gênero</span>
+                            <span class="info-value">RPG</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ano</span>
+                            <span class="info-value">1995</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Desenvolvedor</span>
+                            <span class="info-value">Square</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total de Saves</span>
+                            <span class="info-value">3</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Último Upload</span>
+                            <span class="info-value">12 Jul 2025</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Card -->
+                    <div class="upload-card">
+                        <div class="upload-area" onclick="openUploadModal()">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="upload-text">Arraste arquivos aqui</div>
+                            <div class="upload-hint">ou clique para selecionar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Upload -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Upload de Save</h2>
+                <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+            </div>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label class="form-label" for="saveName">Nome do Save</label>
+                    <input type="text" id="saveName" class="form-input" placeholder="Ex: Slot 3 - Final Boss" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="saveDescription">Descrição</label>
+                    <textarea id="saveDescription" class="form-input form-textarea" placeholder="Descreva o progresso neste save..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="saveFile">Arquivo</label>
+                    <input type="file" id="saveFile" class="form-input" accept=".srm,.sav,.state" required>
+                </div>
+                <div class="game-actions">
+                    <button type="submit" class="btn btn-primary">Upload Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 RetroVault. Feito com amor por e para retrogamers.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacidade</a>
+                    <a href="#terms">Termos</a>
+                    <a href="#contact">Contato</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functions
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('show');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('uploadModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeUploadModal();
+            }
+        });
+
+        // Upload form
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Funcionalidade de upload será implementada em breve!');
+            closeUploadModal();
+        });
+
+        // Filter saves
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active from all buttons
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                // Add active to clicked button
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const saveItems = document.querySelectorAll('.save-item');
+                
+                saveItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-type') === filter) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Download and delete actions
+        document.querySelectorAll('.action-btn.download').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Download iniciado!');
+            });
+        });
+
+        document.querySelectorAll('.action-btn.delete').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Tem certeza que deseja excluir este save?')) {
+                    this.closest('.save-item').remove();
+                }
+            });
+        });
+
+        // Drag and drop for upload area
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            openUploadModal();
+        });
+    </script>
+</body>
+</html>

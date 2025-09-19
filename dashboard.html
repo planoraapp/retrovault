@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RetroVault</title>
+    <style>
+        /* --- FONTES MODERNAS E CLEAN --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        /* --- CONFIGURAÇÕES GERAIS (VARIÁVEIS DE COR) --- */
+        :root {
+            --background-primary: #ffffff;
+            --background-secondary: #f8fafc;
+            --background-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+        }
+
+        /* --- ESTILO MODERNO DO CORPO DA PÁGINA --- */
+        body {
+            background-color: var(--background-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        .navbar {
+            background-color: var(--background-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-primary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- HEADER DA PÁGINA --- */
+        .page-header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        /* --- GRID DE DASHBOARD --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* --- SEÇÃO PRINCIPAL --- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* --- CARDS DE ESTATÍSTICAS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background-color: var(--background-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.primary { background-color: rgba(59, 130, 246, 0.1); color: var(--accent-primary); }
+        .stat-icon.success { background-color: rgba(16, 185, 129, 0.1); color: var(--accent-success); }
+        .stat-icon.warning { background-color: rgba(245, 158, 11, 0.1); color: var(--accent-warning); }
+        .stat-icon.secondary { background-color: rgba(139, 92, 246, 0.1); color: var(--accent-secondary); }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* --- SEÇÃO DE ATIVIDADES RECENTES --- */
+        .activity-section {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .view-all-btn {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .activity-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .activity-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--background-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .activity-time {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* --- CARD DE UPLOAD RÁPIDO --- */
+        .upload-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .upload-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 1rem;
+            border-radius: var(--radius-lg);
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .upload-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upload-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* --- CARD DE CONSELHOS --- */
+        .tips-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+        }
+
+        .tips-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .tip-item:last-child {
+            border-bottom: none;
+        }
+
+        .tip-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-success);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .tip-description {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        /* --- GRÁFICO DE ATIVIDADE --- */
+        .chart-section {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, var(--background-secondary), var(--background-tertiary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* --- RODAPÉ --- */
+        .footer {
+            background-color: var(--background-tertiary);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-light);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer p {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RetroVault</a>
+            <ul class="nav-links">
+                <li><a href="library.html">Biblioteca</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="index.html#cta-section">Entrar na Fila</a></li>
+            </ul>
+            <div class="user-menu">
+                <div class="user-avatar">JD</div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Header da Página -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Visão geral da sua coleção de saves retrô</p>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <section class="dashboard-grid">
+            <div class="main-content">
+                <!-- Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Total de Jogos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="stat-number">67</div>
+                        <div class="stat-label">Saves Salvos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Consoles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon secondary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 16V8C21 7.45 20.55 7 20 7H4C3.45 7 3 7.45 3 8V16C3 16.55 3.45 17 4 17H20C20.55 17 21 16.55 21 16ZM19 9V15H5V9H19Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="stat-number">2.3GB</div>
+                        <div class="stat-label">Armazenamento</div>
+                    </div>
+                </div>
+
+                <!-- Atividades Recentes -->
+                <div class="activity-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Atividades Recentes</h2>
+                        <a href="library.html" class="view-all-btn">Ver todas</a>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Save uploadado</div>
+                                <div class="activity-description">Chrono Trigger - Slot 3 (Final Lavos)</div>
+                            </div>
+                            <div class="activity-time">há 2 horas</div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Save baixado</div>
+                                <div class="activity-description">Super Metroid - 100% Items</div>
+                            </div>
+                            <div class="activity-time">há 5 horas</div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4C3.45 4 3 4.45 3 5V19C3 19.55 3.45 20 4 20H18C18.55 20 19 19.55 19 19V12H11V4ZM15 4L19 8H15V4Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Novo jogo adicionado</div>
+                                <div class="activity-description">Sonic 3 & Knuckles</div>
+                            </div>
+                            <div class="activity-time">ontem</div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1L13.5 2.5L16.17 5.17C15.24 5.06 14.32 5 13.4 5H10.6C9.68 5 8.76 5.06 7.83 5.17L10.5 2.5L9 1L3 7V9H21ZM12 8C13.1 8 14 8.9 14 10S13.1 12 12 12S10 11.1 10 10S10.9 8 12 8Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Backup automático</div>
+                                <div class="activity-description">67 saves sincronizados</div>
+                            </div>
+                            <div class="activity-time">há 2 dias</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Gráfico de Atividade -->
+                <div class="chart-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Atividade dos Últimos 7 Dias</h2>
+                    </div>
+                    <div class="chart-placeholder">
+                        📊 Gráfico de atividade será implementado em breve
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Upload Rápido -->
+                <div class="upload-card">
+                    <div class="upload-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="upload-title">Upload Rápido</h3>
+                    <p class="upload-description">Adicione novos saves em segundos</p>
+                    <button class="upload-btn">Selecionar Arquivos</button>
+                </div>
+
+                <!-- Dicas e Conselhos -->
+                <div class="tips-card">
+                    <h3 class="tips-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                        Dicas
+                    </h3>
+                    <div class="tip-item">
+                        <div class="tip-icon">1</div>
+                        <div class="tip-content">
+                            <div class="tip-title">Backup Regular</div>
+                            <div class="tip-description">Faça backup dos seus saves semanalmente</div>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">2</div>
+                        <div class="tip-content">
+                            <div class="tip-title">Organize com Tags</div>
+                            <div class="tip-description">Use tags para encontrar saves rapidamente</div>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">3</div>
+                        <div class="tip-content">
+                            <div class="tip-title">Verifique Compatibilidade</div>
+                            <div class="tip-description">Confirme se o formato é suportado pelo emulador</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 RetroVault. Feito com amor por e para retrogamers.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacidade</a>
+                    <a href="#terms">Termos</a>
+                    <a href="#contact">Contato</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Upload button functionality
+        document.querySelector('.upload-btn').addEventListener('click', function() {
+            alert('Funcionalidade de upload será implementada em breve!');
+        });
+
+        // Animate stat cards on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

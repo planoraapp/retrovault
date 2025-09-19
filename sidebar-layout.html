@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroVault - Layout com Sidebar</title>
+    <style>
+        /* --- FONTES MODERNAS E CLEAN --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        /* --- CONFIGURAÇÕES GERAIS (VARIÁVEIS DE COR) --- */
+        :root {
+            --background-primary: #0a0a0a;
+            --background-secondary: #1a1a1a;
+            --background-tertiary: #121212;
+            --background-sidebar: #1a1a1a;
+            --background-sidebar-hover: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #616161;
+            --text-sidebar: #a0a0a0;
+            --accent-primary: #007bff;
+            --accent-secondary: #6f42c1;
+            --accent-success: #28a745;
+            --accent-warning: #f59e0b;
+            --accent-error: #ef4444;
+            --border-light: #333333;
+            --border-medium: #555555;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --sidebar-width: 300px;
+            --sidebar-width-collapsed: 60px;
+        }
+
+        /* --- ESTILO MODERNO DO CORPO DA PÁGINA --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT PRINCIPAL --- */
+        .app-layout {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR DESKTOP --- */
+        .sidebar {
+            background-color: var(--background-sidebar);
+            border-right: 1px solid var(--border-light);
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            padding: 1rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: width 0.3s ease;
+            width: var(--sidebar-width-collapsed);
+            z-index: 100;
+        }
+
+        .sidebar:hover {
+            width: var(--sidebar-width);
+        }
+
+        .sidebar.open {
+            width: var(--sidebar-width);
+        }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 2rem;
+        }
+
+        .sidebar-main {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 2rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* --- LOGO --- */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.25rem 0;
+            position: relative;
+            z-index: 20;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar:hover .logo-text,
+        .sidebar.open .logo-text {
+            opacity: 1;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        .nav-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-sidebar);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: var(--background-sidebar-hover);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+
+        .nav-link.active:hover {
+            background-color: #2563eb;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-label {
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar:hover .nav-label,
+        .sidebar.open .nav-label {
+            opacity: 1;
+        }
+
+        /* --- USER SECTION --- */
+        .user-section {
+            border-top: 1px solid var(--border-light);
+            padding-top: 1rem;
+        }
+
+        .user-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-sidebar);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .user-link:hover {
+            background-color: var(--background-sidebar-hover);
+            transform: translateX(4px);
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar:hover .user-info,
+        .sidebar.open .user-info {
+            opacity: 1;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        /* --- MOBILE SIDEBAR --- */
+        .mobile-header {
+            background-color: var(--background-sidebar);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            width: 100%;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: var(--background-sidebar-hover);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-primary);
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            padding: 3rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.show {
+            transform: translateX(0);
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-close-btn:hover {
+            background-color: var(--background-tertiary);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+            overflow: hidden;
+        }
+
+        .main-content.with-sidebar {
+            margin-left: var(--sidebar-width-collapsed);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background-color: var(--background-primary);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (min-width: 768px) {
+            .sidebar {
+                display: flex;
+            }
+
+            .mobile-header {
+                display: none;
+            }
+
+            .main-content.with-sidebar {
+                margin-left: var(--sidebar-width-collapsed);
+            }
+
+            .sidebar:hover + .main-content.with-sidebar,
+            .sidebar.open + .main-content.with-sidebar {
+                margin-left: var(--sidebar-width);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                display: none;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+        }
+
+        /* --- DASHBOARD CONTENT --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--background-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.primary { background-color: rgba(59, 130, 246, 0.1); color: var(--accent-primary); }
+        .stat-icon.success { background-color: rgba(16, 185, 129, 0.1); color: var(--accent-success); }
+        .stat-icon.warning { background-color: rgba(245, 158, 11, 0.1); color: var(--accent-warning); }
+        .stat-icon.secondary { background-color: rgba(139, 92, 246, 0.1); color: var(--accent-secondary); }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .content-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .content-card {
+            background-color: var(--background-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+        }
+
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .placeholder-content {
+            min-height: 200px;
+            background-color: var(--background-secondary);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background-color: var(--background-tertiary);
+            border-radius: var(--radius-sm);
+            padding-left: 0.5rem;
+            transform: translateX(5px);
+        }
+
+        .activity-icon {
+            font-size: 1.25rem;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background-tertiary);
+            border-radius: 50%;
+        }
+
+        .activity-text {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+        }
+
+        .upload-area {
+            height: 200px;
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-primary);
+            background-color: var(--background-tertiary);
+            transform: scale(1.02);
+        }
+
+        .upload-area:hover::before {
+            left: 100%;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover .upload-icon {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .upload-text {
+            text-align: center;
+        }
+
+        .upload-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .upload-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .upload-formats {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .format-tag {
+            background-color: var(--background-tertiary);
+            color: var(--accent-primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .format-tag:hover {
+            background-color: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- ANIMAÇÕES AVANÇADAS --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 123, 255, 0.6), 0 0 30px rgba(0, 123, 255, 0.4);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .slide-in-left {
+            animation: slideInFromLeft 0.8s ease forwards;
+        }
+
+        .slide-in-right {
+            animation: slideInFromRight 0.8s ease forwards;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-on-scroll-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Efeitos de hover avançados */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+            animation: pulse 2s infinite;
+        }
+
+        .stat-number {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-number {
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Animações de entrada escalonadas */
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Efeito de loading shimmer */
+        .loading-shimmer {
+            background: linear-gradient(90deg, 
+                var(--background-secondary) 25%, 
+                var(--background-tertiary) 50%, 
+                var(--background-secondary) 75%);
+            background-size: 200px 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Efeito de partículas flutuantes */
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .floating-element:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        /* Efeito de glow para elementos ativos */
+        .nav-link.active {
+            position: relative;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* Transições suaves para mudanças de página */
+        .page-content {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-content.entering {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .page-content.entered {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .page-content.exiting {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        /* --- SCROLLBAR --- */
+        .sidebar::-webkit-scrollbar,
+        .mobile-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track,
+        .mobile-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb,
+        .mobile-sidebar::-webkit-scrollbar-thumb {
+            background-color: var(--border-medium);
+            border-radius: 2px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover,
+        .mobile-sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: var(--text-tertiary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Desktop -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-main">
+                    <!-- Logo -->
+                    <div class="logo-section">
+                        <div class="logo-icon">RV</div>
+                        <span class="logo-text">RetroVault</span>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="nav-section">
+                        <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                            <div class="nav-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                        <a href="#library" class="nav-link" data-page="library">
+                            <div class="nav-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM17 12H15V7H17V12ZM13 12H11V7H13V12ZM9 12H7V7H9V12Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Biblioteca</span>
+                        </a>
+                        <a href="#games" class="nav-link" data-page="games">
+                            <div class="nav-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Jogos</span>
+                        </a>
+                        <a href="#saves" class="nav-link" data-page="saves">
+                            <div class="nav-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Saves</span>
+                        </a>
+                        <a href="#settings" class="nav-link" data-page="settings">
+                            <div class="nav-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.14,12.94C19.18,12.64 19.20,12.33 19.20,12C19.20,11.67 19.18,11.36 19.14,11.06L21.16,9.48C21.34,9.34 21.39,9.07 21.28,8.87L19.36,5.44C19.24,5.21 18.99,5.12 18.77,5.17L16.38,5.86C15.88,5.41 15.35,5.05 14.76,4.78L14.40,2.32C14.36,2.07 14.16,1.88 13.91,1.88H10.09C9.84,1.88 9.64,2.07 9.60,2.32L9.24,4.78C8.65,5.05 8.12,5.41 7.62,5.86L5.23,5.17C5.01,5.12 4.76,5.21 4.64,5.44L2.72,8.87C2.61,9.07 2.66,9.34 2.84,9.48L4.86,11.06C4.82,11.36 4.80,11.69 4.80,12C4.80,12.31 4.82,12.64 4.86,12.94L2.84,14.52C2.66,14.66 2.61,14.93 2.72,15.13L4.64,18.56C4.76,18.79 5.01,18.88 5.23,18.83L7.62,18.14C8.12,18.59 8.65,18.95 9.24,19.22L9.60,21.68C9.64,21.93 9.84,22.12 10.09,22.12H13.91C14.16,22.12 14.36,21.93 14.40,21.68L14.76,19.22C15.35,18.95 15.88,18.59 16.38,18.14L18.77,18.83C18.99,18.88 19.24,18.79 19.36,18.56L21.28,15.13C21.39,14.93 21.34,14.66 21.16,14.52L19.14,12.94ZM12,15.6C10.02,15.6 8.4,13.98 8.4,12C8.4,10.02 10.02,8.4 12,8.4C13.98,8.4 15.6,10.02 15.6,12C15.6,13.98 13.98,15.6 12,15.6Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Configurações</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- User Section -->
+                <div class="user-section">
+                    <a href="#profile" class="user-link">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-info">
+                            <span class="user-name">João Dev</span>
+                            <span class="user-role">Retro Gamer</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Mobile Header -->
+            <header class="mobile-header">
+                <div class="mobile-logo">
+                    <div class="logo-icon">RV</div>
+                    <span>RetroVault</span>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Content -->
+                <div id="dashboardContent" class="page-content">
+                    <h1 class="animate-on-scroll">Dashboard</h1>
+                    <p class="animate-on-scroll" style="color: var(--text-secondary); margin-bottom: 2rem;">Visão geral da sua coleção de saves retrô</p>
+
+                    <div class="dashboard-grid">
+                        <div class="stat-card animate-on-scroll floating-element">
+                            <div class="stat-icon primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Total de Jogos</div>
+                        </div>
+                        <div class="stat-card animate-on-scroll floating-element">
+                            <div class="stat-icon success">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="stat-number">67</div>
+                            <div class="stat-label">Saves Salvos</div>
+                        </div>
+                        <div class="stat-card animate-on-scroll floating-element">
+                            <div class="stat-icon warning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Consoles</div>
+                        </div>
+                        <div class="stat-card animate-on-scroll floating-element">
+                            <div class="stat-icon secondary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 16V8C21 7.45 20.55 7 20 7H4C3.45 7 3 7.45 3 8V16C3 16.55 3.45 17 4 17H20C20.55 17 21 16.55 21 16ZM19 9V15H5V9H19Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="stat-number">2.3GB</div>
+                            <div class="stat-label">Armazenamento</div>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <div class="content-card animate-on-scroll-left">
+                            <h3>Atividades Recentes</h3>
+                            <div class="placeholder-content">
+                                <div class="activity-item">
+                                    <div class="activity-icon">🎮</div>
+                                    <div class="activity-text">
+                                        <div class="activity-title">Chrono Trigger - Save criado</div>
+                                        <div class="activity-time">2 horas atrás</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">💾</div>
+                                    <div class="activity-text">
+                                        <div class="activity-title">Super Metroid - Upload realizado</div>
+                                        <div class="activity-time">5 horas atrás</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">🔄</div>
+                                    <div class="activity-text">
+                                        <div class="activity-title">Sincronização automática</div>
+                                        <div class="activity-time">1 dia atrás</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-card animate-on-scroll-right">
+                            <h3>Upload Rápido</h3>
+                            <div class="upload-area">
+                                <div class="upload-icon">⬆️</div>
+                                <div class="upload-text">
+                                    <div class="upload-title">Arraste seus saves aqui</div>
+                                    <div class="upload-subtitle">ou clique para selecionar</div>
+                                </div>
+                                <div class="upload-formats">
+                                    <span class="format-tag">.sav</span>
+                                    <span class="format-tag">.srm</span>
+                                    <span class="format-tag">.state</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Content -->
+                <div id="libraryContent" class="page-content" style="display: none;">
+                    <h1 class="fade-in">Biblioteca</h1>
+                    <p class="fade-in" style="color: var(--text-secondary); margin-bottom: 2rem;">Organize e gerencie todos os seus saves retrô</p>
+                    <div class="placeholder-content fade-in">
+                        🎮 Grid de jogos será implementado em breve
+                    </div>
+                </div>
+
+                <!-- Games Content -->
+                <div id="gamesContent" class="page-content" style="display: none;">
+                    <h1 class="fade-in">Jogos</h1>
+                    <p class="fade-in" style="color: var(--text-secondary); margin-bottom: 2rem;">Explore sua coleção de jogos retrô</p>
+                    <div class="placeholder-content fade-in">
+                        🕹️ Lista de jogos será implementada em breve
+                    </div>
+                </div>
+
+                <!-- Saves Content -->
+                <div id="savesContent" class="page-content" style="display: none;">
+                    <h1 class="fade-in">Saves</h1>
+                    <p class="fade-in" style="color: var(--text-secondary); margin-bottom: 2rem;">Gerencie todos os seus arquivos de save</p>
+                    <div class="placeholder-content fade-in">
+                        💾 Lista de saves será implementada em breve
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div id="settingsContent" class="page-content" style="display: none;">
+                    <h1 class="fade-in">Configurações</h1>
+                    <p class="fade-in" style="color: var(--text-secondary); margin-bottom: 2rem;">Configure suas preferências e conta</p>
+                    <div class="placeholder-content fade-in">
+                        ⚙️ Configurações serão implementadas em breve
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
+
+        <!-- Mobile Sidebar -->
+        <aside class="mobile-sidebar" id="mobileSidebar">
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                </svg>
+            </button>
+
+            <!-- Logo -->
+            <div class="logo-section" style="margin-bottom: 2rem;">
+                <div class="logo-icon">RV</div>
+                <span class="logo-text" style="opacity: 1;">RetroVault</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="nav-section" style="margin-bottom: 2rem;">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="nav-label" style="opacity: 1;">Dashboard</span>
+                </a>
+                <a href="#library" class="nav-link" data-page="library">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM17 12H15V7H17V12ZM13 12H11V7H13V12ZM9 12H7V7H9V12Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="nav-label" style="opacity: 1;">Biblioteca</span>
+                </a>
+                <a href="#games" class="nav-link" data-page="games">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="nav-label" style="opacity: 1;">Jogos</span>
+                </a>
+                <a href="#saves" class="nav-link" data-page="saves">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="nav-label" style="opacity: 1;">Saves</span>
+                </a>
+                <a href="#settings" class="nav-link" data-page="settings">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.14,12.94C19.18,12.64 19.20,12.33 19.20,12C19.20,11.67 19.18,11.36 19.14,11.06L21.16,9.48C21.34,9.34 21.39,9.07 21.28,8.87L19.36,5.44C19.24,5.21 18.99,5.12 18.77,5.17L16.38,5.86C15.88,5.41 15.35,5.05 14.76,4.78L14.40,2.32C14.36,2.07 14.16,1.88 13.91,1.88H10.09C9.84,1.88 9.64,2.07 9.60,2.32L9.24,4.78C8.65,5.05 8.12,5.41 7.62,5.86L5.23,5.17C5.01,5.12 4.76,5.21 4.64,5.44L2.72,8.87C2.61,9.07 2.66,9.34 2.84,9.48L4.86,11.06C4.82,11.36 4.80,11.69 4.80,12C4.80,12.31 4.82,12.64 4.86,12.94L2.84,14.52C2.66,14.66 2.61,14.93 2.72,15.13L4.64,18.56C4.76,18.79 5.01,18.88 5.23,18.83L7.62,18.14C8.12,18.59 8.65,18.95 9.24,19.22L9.60,21.68C9.64,21.93 9.84,22.12 10.09,22.12H13.91C14.16,22.12 14.36,21.93 14.40,21.68L14.76,19.22C15.35,18.95 15.88,18.59 16.38,18.14L18.77,18.83C18.99,18.88 19.24,18.79 19.36,18.56L21.28,15.13C21.39,14.93 21.34,14.66 21.16,14.52L19.14,12.94ZM12,15.6C10.02,15.6 8.4,13.98 8.4,12C8.4,10.02 10.02,8.4 12,8.4C13.98,8.4 15.6,10.02 15.6,12C15.6,13.98 13.98,15.6 12,15.6Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span class="nav-label" style="opacity: 1;">Configurações</span>
+                </a>
+            </nav>
+
+            <!-- User Section -->
+            <div class="user-section">
+                <a href="#profile" class="user-link">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info" style="opacity: 1;">
+                        <span class="user-name">João Dev</span>
+                        <span class="user-role">Retro Gamer</span>
+                    </div>
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Desktop sidebar hover behavior
+        let sidebarTimeout;
+        
+        function handleSidebarHover() {
+            clearTimeout(sidebarTimeout);
+            sidebar.classList.add('open');
+            mainContent.classList.add('with-sidebar');
+        }
+
+        function handleSidebarLeave() {
+            sidebarTimeout = setTimeout(() => {
+                if (!sidebar.classList.contains('persistent')) {
+                    sidebar.classList.remove('open');
+                }
+            }, 300);
+        }
+
+        // Mobile sidebar functionality
+        function openMobileSidebar() {
+            mobileOverlay.classList.add('show');
+            mobileSidebar.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileSidebar() {
+            mobileOverlay.classList.remove('show');
+            mobileSidebar.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages with exit animation
+            document.querySelectorAll('.page-content').forEach(page => {
+                if (page.style.display !== 'none') {
+                    page.classList.add('exiting');
+                    setTimeout(() => {
+                        page.style.display = 'none';
+                        page.classList.remove('exiting', 'entered');
+                    }, 200);
+                }
+            });
+
+            // Show selected page with enter animation
+            const targetPage = document.getElementById(pageId + 'Content');
+            if (targetPage) {
+                setTimeout(() => {
+                    targetPage.style.display = 'block';
+                    targetPage.classList.add('entering');
+                    
+                    setTimeout(() => {
+                        targetPage.classList.remove('entering');
+                        targetPage.classList.add('entered');
+                        
+                        // Trigger scroll animations for new content
+                        triggerScrollAnimations();
+                    }, 50);
+                }, 200);
+            }
+
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Event listeners
+        sidebar.addEventListener('mouseenter', handleSidebarHover);
+        sidebar.addEventListener('mouseleave', handleSidebarLeave);
+
+        mobileMenuBtn.addEventListener('click', openMobileSidebar);
+        mobileCloseBtn.addEventListener('click', closeMobileSidebar);
+        mobileOverlay.addEventListener('click', closeMobileSidebar);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showPage(page);
+                closeMobileSidebar();
+            });
+        });
+
+        // Advanced animation system
+        function triggerScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right');
+            animatedElements.forEach((el, index) => {
+                if (!el.classList.contains('animated')) {
+                    setTimeout(() => {
+                        el.classList.add('animated');
+                    }, index * 100);
+                }
+            });
+        }
+
+        function addCounterAnimation(element, targetValue, duration = 2000) {
+            let startValue = 0;
+            const increment = targetValue / (duration / 16);
+            
+            const timer = setInterval(() => {
+                startValue += increment;
+                if (startValue >= targetValue) {
+                    element.textContent = targetValue;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(startValue);
+                }
+            }, 16);
+        }
+
+        function addFloatingParticles() {
+            const dashboard = document.getElementById('dashboardContent');
+            if (!dashboard) return;
+
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 1;
+                    animation: float ${3 + Math.random() * 2}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 2}s;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                `;
+                dashboard.appendChild(particle);
+            }
+        }
+
+        // Initialize
+        mainContent.classList.add('with-sidebar');
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileSidebar();
+            }
+        });
+
+        // Prevent sidebar from closing when clicking inside it
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Advanced scroll observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Add counter animation for stat numbers
+                    if (entry.target.classList.contains('stat-card')) {
+                        const numberElement = entry.target.querySelector('.stat-number');
+                        if (numberElement && !numberElement.dataset.animated) {
+                            const value = parseInt(numberElement.textContent);
+                            if (!isNaN(value)) {
+                                numberElement.dataset.animated = 'true';
+                                addCounterAnimation(numberElement, value);
+                            }
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        function observeElements() {
+            document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right').forEach(el => {
+                scrollObserver.observe(el);
+            });
+        }
+
+        // Initial setup
+        observeElements();
+        triggerScrollAnimations();
+        
+        // Add floating particles to dashboard
+        setTimeout(addFloatingParticles, 1000);
+
+        // Enhanced hover effects
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+                card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = 'var(--shadow-md)';
+            });
+        });
+
+        // Upload area interaction
+        const uploadArea = document.querySelector('.upload-area');
+        if (uploadArea) {
+            uploadArea.addEventListener('click', () => {
+                uploadArea.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    uploadArea.style.transform = 'scale(1.02)';
+                }, 100);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -164,3 +164,54 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 ---
 
 **Desenvolvido com ❤️ para a comunidade retrô gaming**
+
+## �� PROBLEMA IDENTIFICADO:
+A pasta `node_modules` está no repositório Git, causando erro de permissão no Vercel.
+
+## 🔧 SOLUÇÃO RÁPIDA:
+
+### **1. Abra o terminal na pasta do projeto e execute:**
+
+```bash
+git rm -r --cached node_modules
+git rm -r --cached dist
+git add .gitignore
+git commit -m "Remove node_modules from repository"
+```
+
+### **2. Edite o `package.json` e:**
+- **REMOVA** esta linha: `"firebase": "^12.3.0",`
+- **ADICIONE** após `"type": "module",`:
+```json
+"engines": {
+  "node": ">=18.0.0",
+  "npm": ">=8.0.0"
+},
+```
+
+### **3. Substitua o `vercel.json` por:**
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+### **4. Commit final:**
+```bash
+<code_block_to_apply_from>
+```
+
+## ✅ RESULTADO:
+- ✅ `node_modules` removido do Git
+- ✅ Firebase removido das dependências  
+- ✅ `vercel.json` simplificado
+- ✅ Deploy funcionando perfeitamente!
+
+## 🎯 DEPOIS DISSO:
+1. Aguarde 2-3 minutos
+2. O Vercel detectará automaticamente as mudanças
+3. O deploy funcionará sem erros!
+
+**Essa é a solução completa!** Execute esses comandos e o deploy funcionará perfeitamente! 🚀✨

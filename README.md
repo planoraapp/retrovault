@@ -1,92 +1,188 @@
-# RetroVault 🎮
+# 🎮 RetroVault
 
-**Seus Saves Retrô Merecem um Cofre**
+Um cofre digital para saves e arquivos de retrogames, desenvolvido para preservar e compartilhar memórias dos jogos clássicos.
 
-Uma plataforma web segura onde jogadores podem fazer upload, armazenar e gerenciar seus arquivos de save (.sav, .srm, .state, etc.) de emuladores e consoles retrô.
+## 🚀 Características
 
-## 🎯 Proposta de Valor
+* **Upload de Saves**: Faça upload de seus saves de retrogames
+* **Categorização por Plataforma**: Organize por consoles, portáteis, arcade e computadores
+* **Sistema de Busca Avançada**: Encontre saves por jogo, plataforma, tags ou tamanho
+* **Interface Retro**: Design inspirado nos jogos clássicos
+* **Responsivo**: Funciona perfeitamente em desktop e mobile
 
-### Segurança
-Seus saves estarão na nuvem, protegidos contra falhas de hardware.
+## 🎯 Plataformas Suportadas
 
-### Acessibilidade  
-Acesse seus saves de qualquer lugar, seja para continuar o jogo em outro computador ou para compartilhar com um amigo.
+### Consoles
 
-### Organização
-Mantenha um histórico de progresso, com notas e tags para cada save (ex: "Final Fantasy VI - Save antes do chefe final", "Super Metroid - 100% itens").
+* Nintendo Entertainment System (NES)
+* Super Nintendo Entertainment System (SNES)
+* Nintendo 64
+* Nintendo GameCube
+* Nintendo Wii
+* Sega Genesis/Mega Drive
+* Sega Saturn
+* Sega Dreamcast
+* PlayStation
+* PlayStation 2
+* Xbox
+* Xbox 360
 
-### Comunidade (Futuro)
-Permitir que jogadores compartilhem saves de desafios específicos, saves "100% completos" ou até mesmo iniciem competições.
+### Portáteis
 
-## 🚀 Como Usar
+* Game Boy
+* Game Boy Color
+* Game Boy Advance
+* Nintendo DS
+* PlayStation Portable
 
-1. **Abra o arquivo `index.html`** em qualquer navegador moderno
-2. **Explore a landing page** e veja como será a experiência
-3. **Cadastre seu email** para ser notificado quando o projeto for lançado
+### Arcade
 
-## ✨ Funcionalidades da Landing Page
+* Máquinas de arcade
 
-- **Design Responsivo**: Funciona perfeitamente em desktop e mobile
-- **Efeitos Visuais**: Animações suaves e efeitos de hover
-- **Formulário Funcional**: Coleta emails e salva no localStorage
-- **Efeito de Digitação**: Título animado com efeito retrô
-- **Smooth Scroll**: Navegação suave entre seções
+### Computadores
 
-## 🎨 Design Features
+* MS-DOS
+* Windows 95/98
+* Amiga
+* Commodore 64
 
-- **Paleta de Cores**: Azul-noite escuro com acentos ciano e roxo
-- **Tipografia**: Combinação de Poppins (moderna) e Press Start 2P (retrô)
-- **Layout**: Cards flutuantes, gradientes e sombras modernas
-- **Mockup**: Interface simulada mostrando como será a plataforma
+## 🛠️ Tecnologias
 
-## 📱 Responsividade
+* **React 18** com TypeScript
+* **Vite** para build e desenvolvimento
+* **Tailwind CSS** para estilização
+* **Lucide React** para ícones
 
-A página está otimizada para:
-- **Desktop**: Layout em 3 colunas para os cards de features
-- **Tablet**: Layout adaptativo com cards em 2 colunas
-- **Mobile**: Layout em coluna única com formulário otimizado
+## 📦 Instalação
 
-## 🔧 Tecnologias Utilizadas
+1. Clone o repositório:
 
-- **HTML5**: Estrutura semântica
-- **CSS3**: 
-  - Variáveis CSS para cores
-  - Flexbox para layout
-  - Grid para organização
-  - Animações e transições
-  - Media queries para responsividade
-- **JavaScript**: 
-  - Manipulação do DOM
-  - LocalStorage para persistência
-  - Efeitos de scroll suave
-  - Validação de formulário
+```bash
+git clone https://github.com/planoraapp/retrovault.git
+cd retrovault
+```
 
-## 🚀 Próximos Passos
+2. Instale as dependências:
 
-Para transformar esta landing page em uma aplicação completa:
+```bash
+npm install
+```
 
-1. **Backend**: Implementar API para gerenciar usuários e arquivos
-2. **Banco de Dados**: Armazenar informações de usuários e metadados dos saves
-3. **Upload de Arquivos**: Sistema de upload seguro para arquivos .sav, .srm, etc.
-4. **Autenticação**: Sistema de login/registro
-5. **Dashboard**: Interface para gerenciar saves
-6. **Compartilhamento**: Sistema para compartilhar saves com outros usuários
+3. Execute o projeto em modo de desenvolvimento:
 
-## 📧 Como Contribuir
+```bash
+npm run dev
+```
 
-Este é um projeto em desenvolvimento. Se você tem interesse em contribuir:
+4. Abra http://localhost:5173 no seu navegador.
 
-1. Clone o repositório
-2. Faça suas modificações
-3. Teste em diferentes dispositivos
-4. Submeta um pull request
+## 🔥 Configuração Firebase
+
+### 1. Criar Projeto Firebase
+1. Acesse [Firebase Console](https://console.firebase.google.com/)
+2. Crie um novo projeto
+3. Habilite o Firestore Database
+4. Obtenha a configuração do projeto
+
+### 2. Configurar Variáveis de Ambiente
+Crie um arquivo `.env.local` na raiz do projeto:
+```env
+VITE_FIREBASE_API_KEY=sua_api_key_aqui
+VITE_FIREBASE_AUTH_DOMAIN=seu_projeto.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=seu_projeto_id
+VITE_FIREBASE_STORAGE_BUCKET=seu_projeto.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+```
+
+## 🚀 Deploy no Vercel
+
+### 1. Fazer Push para GitHub
+```bash
+git add .
+git commit -m "Adicionar integração Firebase"
+git push origin main
+```
+
+### 2. Deploy no Vercel
+1. Acesse [Vercel](https://vercel.com/)
+2. Importe seu repositório GitHub
+3. Adicione as variáveis de ambiente no dashboard do Vercel:
+   - `VITE_FIREBASE_API_KEY`
+   - `VITE_FIREBASE_AUTH_DOMAIN`
+   - `VITE_FIREBASE_PROJECT_ID`
+   - `VITE_FIREBASE_STORAGE_BUCKET`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
+   - `VITE_FIREBASE_APP_ID`
+4. Faça o deploy!
+
+### 3. Configurar Coleções Firestore
+Após o deploy, crie estas coleções no Firestore:
+- `saves` - para saves de jogos
+- `platforms` - para plataformas de console
+
+## 🏗️ Scripts Disponíveis
+
+* `npm run dev` - Inicia o servidor de desenvolvimento
+* `npm run build` - Cria a build de produção
+* `npm run preview` - Visualiza a build de produção
+* `npm run lint` - Executa o linter
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── components/          # Componentes React
+│   ├── Header.tsx      # Cabeçalho da aplicação
+│   ├── SearchBar.tsx   # Barra de busca e filtros
+│   ├── PlatformFilter.tsx # Filtro por plataformas
+│   ├── SaveGrid.tsx    # Grid de saves
+│   ├── SaveCard.tsx    # Card individual de save
+│   └── UploadModal.tsx # Modal de upload
+├── data/               # Dados estáticos
+│   ├── platforms.ts    # Lista de plataformas
+│   └── sample-saves.ts # Saves de exemplo
+├── types/              # Definições TypeScript
+│   └── index.ts        # Interfaces e tipos
+├── utils/              # Funções utilitárias
+├── App.tsx             # Componente principal
+└── main.tsx            # Ponto de entrada
+```
+
+## 🎨 Personalização
+
+O projeto usa Tailwind CSS com uma paleta de cores personalizada chamada "retro". Você pode modificar as cores em `tailwind.config.js`:
+
+```javascript
+colors: {
+  retro: {
+    50: '#f0f9ff',
+    // ... outras variações
+    900: '#0c4a6e',
+  }
+}
+```
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
 ## 📄 Licença
 
-© 2025 RetroVault. Feito com amor por e para retrogamers.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 🎮 Como Usar
+
+1. **Navegar**: Use os filtros laterais para navegar por categorias de plataformas
+2. **Buscar**: Digite na barra de busca para encontrar saves específicos
+3. **Filtrar**: Use os filtros avançados para refinar sua busca
+4. **Upload**: Clique em "Upload Save" para adicionar novos saves
+5. **Download**: Clique em "Download" nos cards dos saves para baixar
 
 ---
 
-**Status**: 🚧 Em Desenvolvimento  
-**Versão**: 1.0.0 (Landing Page)  
-**Próxima Versão**: Dashboard Beta
+Feito com ❤️ para a comunidade retrogaming! 🎮

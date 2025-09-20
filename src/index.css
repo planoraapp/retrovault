@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Importar fontes do Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Press+Start+2P&display=swap');
+
+/* Estilos customizados */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F9FAFB;
+  color: #111827;
+}
+
+.font-retro {
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Gradiente para textos */
+.gradient-text {
+  background: linear-gradient(to right, #6366F1, #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Efeito de iluminação nos cards */
+.feature-card:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}

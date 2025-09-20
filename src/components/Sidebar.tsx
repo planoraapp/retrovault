@@ -11,6 +11,15 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
 
   const navigationItems = [
     {
+      id: 'landing',
+      label: 'Início',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"></path>
+        </svg>
+      )
+    },
+    {
       id: 'dashboard',
       label: 'Dashboard',
       icon: (
@@ -47,6 +56,15 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       )
     },
     {
+      id: 'achievements',
+      label: 'Conquistas',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"></path>
+        </svg>
+      )
+    },
+    {
       id: 'settings',
       label: 'Configurações',
       icon: (
@@ -67,10 +85,11 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       {/* Mobile Header */}
       <header className="md:hidden bg-gray-800 border-b border-gray-700 flex items-center justify-between p-4 sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold text-xs">
-            RV
-          </div>
-          <span className="text-white font-semibold text-lg">RetroVault</span>
+          <img 
+            src="./logoimagetransp.png" 
+            alt="RetroVault Logo" 
+            className="w-12 h-12 object-contain"
+          />
         </div>
         <button
           onClick={() => setIsMobileOpen(true)}
@@ -97,10 +116,11 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
         <div className="p-6">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold text-xs">
-                RV
-              </div>
-              <span className="text-white font-semibold text-lg">RetroVault</span>
+              <img 
+                src="./logoimagetransp.png" 
+                alt="RetroVault Logo" 
+                className="w-16 h-16 object-contain"
+              />
             </div>
             <button
               onClick={() => setIsMobileOpen(false)}
@@ -144,15 +164,14 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       </aside>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-16 hover:w-64 transition-all duration-300 bg-gray-800 border-r border-gray-700 h-screen sticky top-0 group">
+      <aside className="hidden md:flex flex-col w-20 hover:w-64 transition-all duration-300 bg-gray-800 border-r border-gray-700 h-screen sticky top-0 group">
         <div className="p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-              RV
-            </div>
-            <span className="text-white font-semibold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              RetroVault
-            </span>
+          <div className="flex items-center justify-center group-hover:justify-start">
+            <img 
+              src="./logoimagetransp.png" 
+              alt="RetroVault Logo" 
+              className="w-10 h-10 object-contain flex-shrink-0 group-hover:w-12 group-hover:h-12 transition-all duration-300"
+            />
           </div>
         </div>
 

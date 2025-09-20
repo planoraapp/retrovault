@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react'
 import Layout from './components/Layout'
 import Dashboard from './components/Dashboard'
+import LandingPage from './pages/LandingPage'
+import AchievementsSection from './components/AchievementsSection'
 import SearchBar from './components/SearchBar'
 import PlatformFilter from './components/PlatformFilter'
 import SaveGrid from './components/SaveGrid'
@@ -10,7 +12,7 @@ import { sampleSaves } from './data/sample-saves'
 import type { Save, Platform, UploadFormData } from './types'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('library')
+  const [currentPage, setCurrentPage] = useState('landing')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
@@ -50,8 +52,14 @@ function App() {
     setIsUploadModalOpen(false)
   }
 
+  const handleEnterDashboard = () => {
+    setCurrentPage('library')
+  }
+
   const renderPageContent = () => {
     switch (currentPage) {
+      case 'landing':
+        return <LandingPage onEnterDashboard={handleEnterDashboard} />
       case 'dashboard':
         return <Dashboard />
       case 'library':
@@ -128,9 +136,22 @@ function App() {
             </div>
           </div>
         )
+      case 'achievements':
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">🏆 Conquistas</h1>
+            <p className="text-gray-400 mb-6">Conecte-se com a comunidade RetroAchievements</p>
+            <AchievementsSection />
+          </div>
+        )
       default:
         return <Dashboard />
     }
+  }
+
+  // Se estiver na landing page, não usar o Layout
+  if (currentPage === 'landing') {
+    return <LandingPage onEnterDashboard={handleEnterDashboard} />
   }
 
   return (

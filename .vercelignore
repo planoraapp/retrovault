@@ -1,14 +1,42 @@
+# Arquivos desnecessários para deploy
 node_modules
-.env
+.git
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Arquivos de desenvolvimento
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Arquivos temporários
 .DS_Store
+Thumbs.db
+
+# Arquivos de build local
+dist
+build
+
+# Arquivos de teste
+coverage
+.nyc_output
+
+# Arquivos de configuração local
 .vscode
 .idea
-scripts
-*.md
+
+# Arquivos de imagem desnecessários (manter apenas os essenciais)
+*.jpg
+*.jpeg
+*.png
+!public/icons/consoles/*.png
+!public/logo*.png
+!public/vite.svg
+
+# Scripts de desenvolvimento
+scripts/download-console-icons.js
+scripts/change-logo-color.js
+scripts/crop-logo.js

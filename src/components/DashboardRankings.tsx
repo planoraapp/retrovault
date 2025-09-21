@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Upload, Gamepad2, Save, HardDrive } from 'lucide-react'
-import GameCover from './GameCover'
-import ConsoleIcon from './ConsoleIcon'
+import React, { useState } from 'react'
+import { Gamepad2, Upload } from 'lucide-react'
+import RankingsContent from './RankingsContent'
 
-interface DashboardProps {
+interface DashboardRankingsProps {
   onUploadClick?: () => void
   onLibraryClick?: () => void
 }
 
-export default function Dashboard({ onUploadClick, onLibraryClick }: DashboardProps) {
+// Componente para a Aba de Dashboard Original
+const DashboardContent = ({ onUploadClick, onLibraryClick }: DashboardRankingsProps) => {
   const [stats, setStats] = useState({
     totalGames: 0,
     totalSaves: 0,
@@ -25,13 +25,13 @@ export default function Dashboard({ onUploadClick, onLibraryClick }: DashboardPr
 
   const statCards = [
     { title: 'Total de Jogos', value: stats.totalGames, icon: Gamepad2, color: 'text-blue-400' },
-    { title: 'Saves Salvos', value: stats.totalSaves, icon: Save, color: 'text-green-400' },
-    { title: 'Consoles', value: stats.totalConsoles, icon: HardDrive, color: 'text-purple-400' },
-    { title: 'Armazenamento', value: `${stats.totalStorage}GB`, icon: HardDrive, color: 'text-orange-400' }
+    { title: 'Saves Salvos', value: stats.totalSaves, icon: Upload, color: 'text-green-400' },
+    { title: 'Consoles', value: stats.totalConsoles, icon: Gamepad2, color: 'text-purple-400' },
+    { title: 'Armazenamento', value: `${stats.totalStorage}GB`, icon: Upload, color: 'text-orange-400' }
   ]
 
-  useEffect(() => {
-    // Simular carregamento de dados
+  // Simular carregamento de dados
+  React.useEffect(() => {
     setStats({
       totalGames: 156,
       totalSaves: 423,
@@ -206,56 +206,16 @@ export default function Dashboard({ onUploadClick, onLibraryClick }: DashboardPr
           ))}
           </div>
       </div>
+    </div>
+  )
+}
 
-      {/* Content Grid */}
-      <div className="dashboard-section-width">
-        <div className="grid grid-cols-1 lg:grid-cols-3 px-4 md:px-8 gap-6">
-        {/* Recent Activities */}
-          <div className="lg:col-span-2 bg-gray-800 rounded-lg p-6 border border-white">
-          <h3 className="text-xl font-semibold text-white mb-4">Atividades Recentes</h3>
-          <div className="space-y-4">
-            {recentActivities.map((activity, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                <div className="flex items-center space-x-3">
-                  {/* Capa do jogo */}
-                  <GameCover 
-                    gameName={activity.game} 
-                    size="sm" 
-                    className="flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-white font-medium">{activity.game}</p>
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
-                      <ConsoleIcon consoleId={activity.console} size="sm" />
-                      <span>{activity.action}</span>
-                    </div>
-                </div>
-                </div>
-                <span className="text-gray-400 text-sm">{activity.time}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Quick Upload */}
-          <div className="bg-gray-800 rounded-lg p-6 border border-white">
-          <h3 className="text-xl font-semibold text-white mb-4">Upload Rápido</h3>
-            <div className="border-2 border-dashed border-white rounded-lg p-8 text-center hover:border-green-500 transition-colors cursor-pointer group">
-            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
-                <Upload className="mx-auto text-gray-400 group-hover:text-green-500" />
-            </div>
-            <div className="text-white font-medium mb-2">Arraste seus saves aqui</div>
-            <div className="text-gray-400 text-sm mb-4">ou clique para selecionar</div>
-              <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
-                Selecionar Arquivos
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+// Componente principal - apenas Rankings
+export default function DashboardRankings({ onUploadClick, onLibraryClick }: DashboardRankingsProps) {
+  return (
+    <div className="space-y-6">
+      {/* Content - apenas Rankings */}
+      <RankingsContent />
     </div>
   )
 }

@@ -33,5 +33,60 @@ export const sampleSaves: Save[] = [
     tags: ['rpg', 'final fantasy', 'completo'],
     notes: 'Disco 3 - Próximo ao final',
     thumbnail: '/assets/242325.jpg'
+  },
+  {
+    id: 'n64-001',
+    gameName: 'Super Mario 64',
+    platform: 'n64',
+    fileName: 'mario_64_120_stars.sav',
+    fileSize: 4096,
+    uploadDate: '2025-01-12T14:20:00Z',
+    tags: ['mario', 'plataforma', '3d'],
+    notes: '120 estrelas coletadas - 100% completo',
+    thumbnail: ''
+  },
+  {
+    id: 'n64-002',
+    gameName: 'The Legend of Zelda: Ocarina of Time',
+    platform: 'n64',
+    fileName: 'zelda_ocarina_complete.sav',
+    fileSize: 8192,
+    uploadDate: '2025-01-11T09:15:00Z',
+    tags: ['zelda', 'aventura', 'rpg'],
+    notes: 'Jogo completo com todas as máscaras',
+    thumbnail: ''
+  },
+  {
+    id: 'snes-002',
+    gameName: 'Super Mario World',
+    platform: 'snes',
+    fileName: 'mario_world_96_exits.sav',
+    fileSize: 2048,
+    uploadDate: '2025-01-10T16:30:00Z',
+    tags: ['mario', 'plataforma', 'yoshi'],
+    notes: 'Todos os 96 exits encontrados',
+    thumbnail: ''
+  },
+  {
+    id: 'genesis-001',
+    gameName: 'Sonic the Hedgehog',
+    platform: 'mega-drive',
+    fileName: 'sonic_1_all_emeralds.sav',
+    fileSize: 1024,
+    uploadDate: '2025-01-09T11:45:00Z',
+    tags: ['sonic', 'plataforma', 'velocidade'],
+    notes: 'Todas as esmeraldas do caos coletadas',
+    thumbnail: ''
+  },
+  {
+    id: 'ps1-002',
+    gameName: 'Metal Gear Solid',
+    platform: 'playstation',
+    fileName: 'mgs_big_boss_rank.sav',
+    fileSize: 16384,
+    uploadDate: '2025-01-08T20:00:00Z',
+    tags: ['stealth', 'ação', 'solid snake'],
+    notes: 'Rank Big Boss - Sem alertas',
+    thumbnail: ''
   }
 ]

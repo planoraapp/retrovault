@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import type { Platform } from '../types'
+import ConsoleIcon from './ConsoleIcon'
 
 interface PlatformFilterProps {
   platforms: Platform[]
@@ -78,7 +79,7 @@ export default function PlatformFilter({ platforms, selectedPlatform, onPlatform
                         : 'text-gray-400 hover:bg-gray-700 hover:text-gray-300'
                     }`}
                   >
-                    <span>{platform.icon}</span>
+                    <ConsoleIcon consoleId={platform.icon} size="sm" />
                     <span className="text-sm">{platform.name}</span>
                   </button>
                 ))}

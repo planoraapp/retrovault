@@ -1,5 +1,7 @@
 import { Download, Calendar, Tag, FileText } from 'lucide-react'
 import type { Save } from '../types'
+import ConsoleIcon from './ConsoleIcon'
+import GameCover from './GameCover'
 
 interface SaveCardProps {
   save: Save
@@ -24,23 +26,22 @@ export default function SaveCard({ save }: SaveCardProps) {
 
   return (
     <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden hover:border-gray-600 transition-all duration-200 hover:transform hover:scale-105">
-      {save.thumbnail && (
-        <div 
-          className="h-48 bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${save.thumbnail})` }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-          <div className="absolute bottom-4 left-4 right-4">
-            <h3 className="text-white font-semibold text-lg mb-1">{save.gameName}</h3>
-            <p className="text-gray-300 text-sm">{save.fileName}</p>
-          </div>
+      {/* Capa do jogo */}
+      <div className="h-48 relative">
+        <GameCover 
+          gameName={save.gameName} 
+          size="xl" 
+          className="w-full h-full"
+          fallbackUrl={save.thumbnail}
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div className="absolute bottom-4 left-4 right-4">
+          <h3 className="text-white font-semibold text-lg mb-1">{save.gameName}</h3>
+          <p className="text-gray-300 text-sm">{save.fileName}</p>
         </div>
-      )}
+      </div>
       
       <div className="p-4">
-        {!save.thumbnail && (
-          <h3 className="text-white font-semibold text-lg mb-2">{save.gameName}</h3>
-        )}
         
         <div className="space-y-3">
           <div className="flex items-center gap-2 text-gray-400 text-sm">
@@ -51,6 +52,11 @@ export default function SaveCard({ save }: SaveCardProps) {
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <Calendar size={16} />
             <span>{formatDate(save.uploadDate)}</span>
+          </div>
+          
+          <div className="flex items-center gap-2 text-gray-400 text-sm">
+            <ConsoleIcon consoleId={save.platform} size="sm" />
+            <span>{save.platform}</span>
           </div>
           
           {save.tags.length > 0 && (

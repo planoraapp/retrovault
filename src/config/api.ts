@@ -2,7 +2,7 @@
 export const RETRO_ACHIEVEMENTS_CONFIG = {
   // Sua chave API do RetroAchievements.org
   // Para obter: https://retroachievements.org/APIDemo.php
-  API_KEY: process.env.REACT_APP_RETRO_ACHIEVEMENTS_API_KEY || 'wz2o51IJRBfUTSk6a5MFiXmGXOuSx20V',
+  API_KEY: import.meta.env.VITE_RETRO_ACHIEVEMENTS_API_KEY || 'wz2o51IJRBfUTSk6a5MFiXmGXOuSx20V',
   
   // URL base da API
   BASE_URL: 'https://retroachievements.org/API',

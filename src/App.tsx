@@ -1,22 +1,27 @@
 import { useState, useMemo } from 'react'
 import Layout from './components/Layout'
-import Dashboard from './components/Dashboard'
+import DashboardRankings from './components/DashboardRankings'
 import LandingPage from './pages/LandingPage'
 import AchievementsSection from './components/AchievementsSection'
 import SearchBar from './components/SearchBar'
 import PlatformFilter from './components/PlatformFilter'
 import SaveGrid from './components/SaveGrid'
 import UploadModal from './components/UploadModal'
+import FolderUploadModal from './components/FolderUploadModal'
+import GameLibrary from './components/GameLibrary'
+import FirebaseTest from './components/FirebaseTest'
 import { platforms } from './data/platforms'
 import { sampleSaves } from './data/sample-saves'
-import type { Save, Platform, UploadFormData } from './types'
+import type { Save, Platform, UploadFormData, GameLibraryItem } from './types'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
+  const [isFolderUploadModalOpen, setIsFolderUploadModalOpen] = useState(false)
   const [saves, setSaves] = useState<Save[]>(sampleSaves)
+  const [gameLibrary, setGameLibrary] = useState<GameLibraryItem[]>([])
 
   const filteredSaves = useMemo(() => {
     let filtered = saves
@@ -52,6 +57,11 @@ function App() {
     setIsUploadModalOpen(false)
   }
 
+  const handleGameLibraryUpload = (games: GameLibraryItem[]) => {
+    setGameLibrary(prev => [...prev, ...games])
+    setIsFolderUploadModalOpen(false)
+  }
+
   const handleEnterDashboard = () => {
     setCurrentPage('library')
   }
@@ -61,7 +71,12 @@ function App() {
       case 'landing':
         return <LandingPage onEnterDashboard={handleEnterDashboard} />
       case 'dashboard':
-        return <Dashboard />
+        return (
+          <DashboardRankings 
+            onUploadClick={() => setIsUploadModalOpen(true)}
+            onLibraryClick={() => setCurrentPage('library')}
+          />
+        )
       case 'library':
         return (
           <div className="space-y-6">
@@ -70,34 +85,32 @@ function App() {
                 <h1 className="text-3xl font-bold text-white mb-2">Biblioteca</h1>
                 <p className="text-gray-400">Organize e gerencie todos os seus saves retrô</p>
               </div>
-              <button
-                onClick={() => setIsUploadModalOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
-                </svg>
-                Upload Save
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setIsFolderUploadModalOpen(true)}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z" fill="currentColor"/>
+                  </svg>
+                  Upload Pasta
+                </button>
+                <button
+                  onClick={() => setIsUploadModalOpen(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"/>
+                  </svg>
+                  Upload Save
+                </button>
+              </div>
             </div>
             
-            <div className="flex flex-col lg:flex-row gap-6">
-              <aside className="lg:w-80">
-                <PlatformFilter
-                  platforms={platforms}
-                  selectedPlatform={selectedPlatform}
-                  onPlatformSelect={setSelectedPlatform}
-                />
-              </aside>
-              <main className="flex-1">
-                <SearchBar
-                  searchTerm={searchTerm}
-                  onSearchChange={setSearchTerm}
-                  onUploadClick={() => setIsUploadModalOpen(true)}
-                />
-                <SaveGrid saves={filteredSaves} />
-              </main>
-            </div>
+            <GameLibrary 
+              platforms={platforms} 
+              onFolderUploadClick={() => setIsFolderUploadModalOpen(true)}
+            />
           </div>
         )
       case 'games':
@@ -144,8 +157,16 @@ function App() {
             <AchievementsSection />
           </div>
         )
+      case 'firebase-test':
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">🔥 Firebase Test</h1>
+            <p className="text-gray-400 mb-6">Teste a conexão com Firebase</p>
+            <FirebaseTest />
+          </div>
+        )
       default:
-        return <Dashboard />
+        return <DashboardRankings />
     }
   }
 
@@ -161,6 +182,12 @@ function App() {
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
         onSave={handleSaveUpload}
+        platforms={platforms}
+      />
+      <FolderUploadModal
+        isOpen={isFolderUploadModalOpen}
+        onClose={() => setIsFolderUploadModalOpen(false)}
+        onUploadComplete={handleGameLibraryUpload}
         platforms={platforms}
       />
     </Layout>

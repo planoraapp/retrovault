@@ -1,9 +1,62 @@
+/* Importar fontes do Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Importar fontes do Google */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Press+Start+2P&display=swap');
+/* Estilos para sliders personalizados */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #10b981;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #059669;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: #10b981;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb:hover {
+  background: #059669;
+  transform: scale(1.1);
+}
 
 /* Estilos customizados */
 body {
@@ -27,4 +80,372 @@ body {
 /* Efeito de iluminação nos cards */
 .feature-card:hover {
   box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+/* Cores personalizadas para os cards modernos */
+.cta-card-verde-claro {
+  background-color: #C8F7A6;
+  color: #1A2623;
+}
+
+.cta-card-verde-forte-pastel {
+  background-color: #52664B;
+  color: #FFFFFF;
+}
+
+.text-verde {
+  color: #82E06B;
+}
+
+.text-branco {
+  color: #FFFFFF;
+}
+
+/* Hover effects para os cards */
+.cta-card-verde-claro:hover {
+  background-color: #B8E696;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(200, 247, 166, 0.3);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.cta-card-verde-forte-pastel:hover {
+  background-color: #4A5A42;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(82, 102, 75, 0.3);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Efeito de brilho nos cards */
+.cta-card-verde-claro {
+  border: 1px solid rgba(34, 197, 94, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-card-verde-claro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.cta-card-verde-claro:hover::before {
+  left: 100%;
+}
+
+.cta-card-verde-forte-pastel {
+  border: 1px solid rgba(34, 197, 94, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-card-verde-forte-pastel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.cta-card-verde-forte-pastel:hover::before {
+  left: 100%;
+}
+
+/* Classes específicas do hero section */
+.hero-homepage-title-wrapper {
+  position: relative;
+  z-index: 20;
+  min-height: 300px;
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-title-wrapper {
+    min-height: 400px;
+  }
+}
+
+/* Hero section background */
+.hero-section-container {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+  border: 2px solid rgba(147, 51, 234, 0.3);
+  border-radius: 20px;
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+  max-width: 85%;
+  margin: 0 auto;
+  min-height: 450px;
+}
+
+@media (min-width: 768px) {
+  .hero-section-container {
+    padding: 24px 20px;
+    max-width: 75%;
+    min-height: 480px;
+  }
+}
+
+/* Classe reutilizável para largura consistente */
+.dashboard-section-width {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+@media (min-width: 768px) {
+  .dashboard-section-width {
+    max-width: 75%;
+    padding: 1.5rem 0;
+  }
+}
+
+
+.hero-section-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(147, 51, 234, 0.03) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Efeito do entalhe em L - Elemento branco */
+.hero-section-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 60%, 40% 60%, 40% 40%, 0 40%);
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  .hero-section-container::after {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Container Unificado - Homepage */
+.hero-unified-container {
+  background: transparent;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Seção da direita com mesma cor e borda */
+.hero-unified-container .absolute.right-0 .bg-gradient-to-br {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%) !important;
+  border: 2px solid rgba(147, 51, 234, 0.3) !important;
+  border-radius: 0 20px 20px 0 !important;
+}
+
+/* Hero Text Container - Homepage */
+.hero-text-container {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+  border: 2px solid rgba(147, 51, 234, 0.3);
+  border-radius: 20px 0 0 20px;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .hero-text-container {
+    padding: 3rem 2rem;
+    border-radius: 20px 0 0 20px;
+  }
+}
+
+/* Efeito do entalhe em L - Homepage */
+.hero-text-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(147, 51, 234, 0.03) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-text-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 60%, 40% 60%, 40% 40%, 0 40%);
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  .hero-text-container::after {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Elemento de conexão visual entre as seções */
+.l-shaped-box-fix-2.safari-fix {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+  border: 2px solid rgba(147, 51, 234, 0.3);
+  border-top: none;
+  border-left: none;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .l-shaped-box-fix-2.safari-fix {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.hero-homepage-title-wrapper-background {
+  position: absolute;
+  z-index: -10;
+  pointer-events: none;
+}
+
+.hero-homepage-title-wrapper-fix {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.title-big-banner {
+  margin-bottom: 1.5rem;
+  padding: 1rem 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .title-big-banner {
+    margin-bottom: 2rem;
+    padding: 1.5rem 1rem 0;
+  }
+}
+
+.description-banner {
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+  color: white;
+  max-width: 45ch;
+  text-align: left;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .description-banner {
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+  }
+}
+
+.button-title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .button-title {
+    font-size: 1.125rem;
+  }
+}
+
+.cta-card {
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  min-height: 90px;
+}
+
+@media (min-width: 768px) {
+  .cta-card {
+    min-height: 130px;
+  }
+}
+
+.cta-arrow-btn {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: opacity 0.2s ease;
+}
+
+.background-shadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.l-shaped-box-fix-1,
+.l-shaped-box-fix-2 {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .l-shaped-box-fix-1,
+  .l-shaped-box-fix-2 {
+    display: block;
+  }
+}
+
+.safari-fix {
+  /* Safari specific fixes */
+}
+
+.hero-homepage-benny-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-homepage-benny-wrapper-background {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bentos-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px;
+}
+
+@media (min-width: 768px) {
+  .bentos-wrapper {
+    position: absolute;
+    padding-left: 0;
+  }
 }

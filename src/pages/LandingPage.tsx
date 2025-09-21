@@ -38,46 +38,57 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
 
       {/* Seção Hero */}
       <main className="py-10 md:py-20">
-        <div className="relative w-full h-full grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-          
-          {/* Coluna da Esquerda: Texto e CTAs */}
-          <div className="md:col-span-7">
-            <div className="flex flex-col h-full gap-5">
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-gray-900">
-                Seus saves. <br />
-                <span className="gradient-text">Para Sempre.</span>
-              </h1>
-              <p className="text-lg text-gray-600 max-w-[45ch]">
-                A plataforma definitiva para armazenar, gerenciar e proteger o progresso dos seus jogos retrô. Falhas de hardware e baterias fracas não são mais o fim do jogo.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                <button 
-                  onClick={onEnterDashboard}
-                  className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg text-center hover:bg-indigo-700 transition-transform hover:scale-105 shadow-lg shadow-indigo-500/20"
-                >
-                  Criar minha Retroteca Grátis
-                </button>
-                <button 
-                  onClick={onEnterDashboard}
-                  className="bg-gray-200 text-gray-800 font-semibold px-8 py-4 rounded-lg text-center hover:bg-gray-300 transition-transform hover:scale-105"
-                >
-                  Ver o Catálogo
-                </button>
+        <div className="relative w-full h-full">
+          {/* Container unificado que conecta ambas as seções */}
+          <div className="hero-unified-container relative w-full h-full min-h-[400px] md:min-h-[500px] rounded-2xl overflow-hidden">
+            
+            {/* Seção da Esquerda: Texto */}
+            <div className="absolute left-0 top-0 w-full md:w-7/12 h-full">
+              <div className="flex flex-col h-full p-8 md:p-12">
+                {/* Container com efeito roxo que cobre apenas os textos */}
+                <div className="hero-text-container relative flex-1 mb-6">
+                  <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white relative z-10">
+                    Seus saves. <br />
+                    <span className="gradient-text">Para Sempre.</span>
+                  </h1>
+                  <p className="text-lg text-white max-w-[45ch] relative z-10 mt-4">
+                    A plataforma definitiva para armazenar, gerenciar e proteger o progresso dos seus jogos retrô. Falhas de hardware e baterias fracas não são mais o fim do jogo.
+                  </p>
+                </div>
+                
+                {/* Botões fora do container roxo - sem background */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    onClick={onEnterDashboard}
+                    className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg text-center hover:bg-indigo-700 transition-transform hover:scale-105 shadow-lg shadow-indigo-500/20"
+                  >
+                    Criar minha Retroteca Grátis
+                  </button>
+                  <button 
+                    onClick={onEnterDashboard}
+                    className="bg-gray-200 text-gray-800 font-semibold px-8 py-4 rounded-lg text-center hover:bg-gray-300 transition-transform hover:scale-105"
+                  >
+                    Ver o Catálogo
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Coluna da Direita: Visual */}
-          <div className="md:col-span-5 h-full">
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl w-full h-full min-h-[300px] md:min-h-[450px] flex items-center justify-center border border-indigo-200">
-              <img 
-                src="./logoimagetransp.png" 
-                alt="RetroVault Logo" 
-                className="w-48 h-48 object-contain drop-shadow-lg"
-              />
+            {/* Elemento de conexão visual entre as seções */}
+            <div className="hidden md:block l-shaped-box-fix-2 safari-fix"></div>
+
+            {/* Seção da Direita: Visual */}
+            <div className="absolute right-0 top-0 w-full md:w-5/12 h-full">
+              <div className="bg-gradient-to-br from-indigo-50 to-purple-50 w-full h-full flex items-center justify-center">
+                <img 
+                  src="./logoimagetransp.png" 
+                  alt="RetroVault Logo" 
+                  className="w-48 h-48 object-contain drop-shadow-lg"
+                />
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </main>
 

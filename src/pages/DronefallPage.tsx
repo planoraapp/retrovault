@@ -43,18 +43,7 @@ const DronefallPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
-      {/* Background Image com Parallax */}
-      <div className="fixed inset-0 w-full h-full z-0">
-        <img 
-          src="https://savelife.in.ua/dronopad/images/background.webp" 
-          alt="Background" 
-          className="background-image w-full h-full object-cover"
-          loading="lazy"
-          width="1920"
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+    <div className="min-h-screen dronefall-background dronefall-texture dronefall-depth text-white overflow-x-hidden relative">
       
       {/* Conteúdo principal */}
       <div className="relative z-10">
@@ -526,16 +515,6 @@ const DronefallPage: React.FC = () => {
         </div>
       </footer>
 
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-100%); }
-        }
-        
-        .animate-marquee {
-          animation: marquee 20s linear infinite;
-        }
-      `}</style>
       </div>
     </div>
   )

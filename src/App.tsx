@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import Layout from './components/Layout'
 import DashboardRankings from './components/DashboardRankings'
 import LandingPage from './pages/LandingPage'
+import DronefallPage from './pages/DronefallPage'
 import AchievementsSection from './components/AchievementsSection'
 import SearchBar from './components/SearchBar'
 import PlatformFilter from './components/PlatformFilter'
@@ -66,10 +67,14 @@ function App() {
     setCurrentPage('library')
   }
 
+  const handleNavigateToDronefall = () => {
+    setCurrentPage('dronefall')
+  }
+
   const renderPageContent = () => {
     switch (currentPage) {
       case 'landing':
-        return <LandingPage onEnterDashboard={handleEnterDashboard} />
+        return <LandingPage onEnterDashboard={handleEnterDashboard} onNavigateToDronefall={handleNavigateToDronefall} />
       case 'dashboard':
         return (
           <DashboardRankings 
@@ -165,14 +170,20 @@ function App() {
             <FirebaseTest />
           </div>
         )
+      case 'dronefall':
+        return <DronefallPage />
       default:
         return <DashboardRankings />
     }
   }
 
-  // Se estiver na landing page, não usar o Layout
+  // Se estiver na landing page ou dronefall page, não usar o Layout
   if (currentPage === 'landing') {
-    return <LandingPage onEnterDashboard={handleEnterDashboard} />
+    return <LandingPage onEnterDashboard={handleEnterDashboard} onNavigateToDronefall={handleNavigateToDronefall} />
+  }
+
+  if (currentPage === 'dronefall') {
+    return <DronefallPage />
   }
 
   return (

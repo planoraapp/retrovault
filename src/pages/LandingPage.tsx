@@ -2,9 +2,10 @@ import React from 'react';
 
 interface LandingPageProps {
   onEnterDashboard: () => void;
+  onNavigateToDronefall: () => void;
 }
 
-export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
+export default function LandingPage({ onEnterDashboard, onNavigateToDronefall }: LandingPageProps) {
   return (
     <div className="w-full max-w-[1600px] mx-auto px-5 md:px-20">
       {/* Header / Navbar */}
@@ -26,6 +27,12 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
             <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors">Funcionalidades</a>
             <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors">Preços</a>
             <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors">Comunidade</a>
+            <button 
+              onClick={onNavigateToDronefall}
+              className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
+            >
+              Dronefall
+            </button>
           </div>
           <button 
             onClick={onEnterDashboard}
@@ -47,10 +54,18 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
               <div className="flex flex-col h-full p-8 md:p-12">
                 {/* Container com efeito roxo que cobre apenas os textos */}
                 <div className="hero-text-container relative flex-1 mb-6">
-                  <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white relative z-10">
-                    Seus saves. <br />
-                    <span className="gradient-text">Para Sempre.</span>
-                  </h1>
+                  <div className="relative z-10">
+                    <div className="h1-block mb-4">
+                      <h1 className="h1 h1--medium" style={{fontSize: 'clamp(1.5rem, 4vw, 2.5rem)'}}>
+                        Seus saves.
+                      </h1>
+                    </div>
+                    <div className="h1-block">
+                      <h1 className="h1 h1--medium" style={{fontSize: 'clamp(1.5rem, 4vw, 2.5rem)'}}>
+                        <span className="gradient-text">Para Sempre.</span>
+                      </h1>
+                    </div>
+                  </div>
                   <p className="text-lg text-white max-w-[45ch] relative z-10 mt-4">
                     A plataforma definitiva para armazenar, gerenciar e proteger o progresso dos seus jogos retrô. Falhas de hardware e baterias fracas não são mais o fim do jogo.
                   </p>

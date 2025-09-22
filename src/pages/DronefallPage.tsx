@@ -4,7 +4,7 @@ const DronefallPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden relative" style={{ backgroundImage: "url(/bgrepeat.png)", backgroundRepeat: "repeat" }}>
+    <div className="min-h-screen text-white overflow-x-hidden relative" style={{ backgroundImage: "url(/bgrepeat.png?v=" + Date.now() + ")", backgroundRepeat: "repeat" }}>
       
       {/* Conteúdo principal */}
       <div className="relative z-20">

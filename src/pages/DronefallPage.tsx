@@ -43,10 +43,10 @@ const DronefallPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen dronefall-background dronefall-texture dronefall-depth text-white overflow-x-hidden relative">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
       
       {/* Conteúdo principal */}
-      <div className="relative z-10">
+      <div className="relative z-20">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,18 +121,10 @@ const DronefallPage: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-gray-400 rounded-full animate-ping"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-gray-400 rounded-full animate-ping"></div>
-        </div>
       </section>
 
       {/* Mission Section */}
-      <section id="mission" className="py-20 bg-gray-900">
+      <section id="mission" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -167,7 +159,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Transferred Equipment Section */}
-      <section id="equipment" className="py-20 bg-black">
+      <section id="equipment" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -205,7 +197,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Completed Section */}
-      <section id="completed" className="py-20 bg-gray-900">
+      <section id="completed" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -241,7 +233,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Summary Section */}
-      <section className="py-20 bg-black">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -329,7 +321,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Partners Section */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -359,7 +351,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Dronefall League Section */}
-      <section id="league" className="py-20 bg-black">
+      <section id="league" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -459,7 +451,7 @@ const DronefallPage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800">
+      <footer className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
@@ -514,6 +506,9 @@ const DronefallPage: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Noise Block - Efeito de ruído granulado */}
+      <div className="noise-block"></div>
 
       </div>
     </div>

@@ -532,24 +532,7 @@ body {
   font-size: clamp(0.6rem, 1.5vw, 1rem);
 }
 
-/* Efeito pixelado adicional */
-.h1::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(255, 255, 255, 0.03) 2px,
-    rgba(255, 255, 255, 0.03) 4px
-  );
-  pointer-events: none;
-  z-index: -1;
-}
+/* Efeito pixelado adicional - REMOVIDO para eliminar grade de linhas */
 
 /* Background Image com Parallax */
 .background-image {
@@ -610,4 +593,57 @@ body {
   pointer-events: none;
   opacity: 0.25; /* Opacidade média para manter visibilidade */
   filter: contrast(0.4) brightness(0.7) saturate(0.5); /* Filtros mais agressivos para reduzir pontos brancos */
+}
+
+/* Hero Text Block Styles */
+.hero-text-block {
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.2;
+}
+
+.hero-text-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text {
+  white-space: nowrap;
+}
+
+.hero-text.is--smaller {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-right: 0.5rem;
+}
+
+.hero-text.has--right-margin {
+  margin-right: 1rem;
+}
+
+.hero-text.has--low-opacity {
+  opacity: 0.7;
+}
+
+/* Responsive adjustments for hero text */
+@media (max-width: 768px) {
+  .hero-text-block {
+    left: 1rem !important;
+    top: 6rem !important;
+  }
+  
+  .hero-text-line {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.25rem;
+  }
+  
+  .hero-text.is--smaller {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .hero-text {
+    font-size: 0.875rem;
+  }
 }

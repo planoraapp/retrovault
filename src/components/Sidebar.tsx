@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, LogOut, LogIn } from 'lucide-react'
+import { useAuth } from '../contexts/AuthContext'
 
 interface SidebarProps {
   currentPage: string
@@ -8,10 +9,17 @@ interface SidebarProps {
 
 export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const { user, signOut } = useAuth()
+  const isDevMode = import.meta.env.VITE_DEV_MODE === 'true'
+  
+  const handleSignOut = async () => {
+    await signOut()
+    onPageChange('dronefall')
+  }
 
   const navigationItems = [
     {
-      id: 'landing',
+      id: 'dronefall',
       label: 'Início',
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,33 +60,6 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M14 3H4V21H20V9L14 3ZM12 19H8V15H12V19ZM14 10H6V5H14V10Z" fill="currentColor"></path>
-        </svg>
-      )
-    },
-    {
-      id: 'achievements',
-      label: 'Conquistas',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"></path>
-        </svg>
-      )
-    },
-    {
-      id: 'firebase-test',
-      label: 'Firebase Test',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"></path>
-        </svg>
-      )
-    },
-    {
-      id: 'dronefall',
-      label: 'Dronefall',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="currentColor"></path>
         </svg>
       )
     },
@@ -155,7 +136,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
                 onClick={() => handlePageChange(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors text-left ${
                   currentPage === item.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-indigo-600 text-white'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                 }`}
               >
@@ -168,15 +149,41 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
           </nav>
 
           <div className="mt-8 pt-6 border-t border-gray-700">
-            <div className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300">
-              <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                JD
+            {isDevMode && (
+              <div className="px-3 py-2 mb-3 bg-yellow-900/30 border border-yellow-600/50 rounded-lg">
+                <div className="text-yellow-400 text-xs font-semibold">🔧 Modo Desenvolvimento</div>
               </div>
+            )}
+            {user ? (
               <div>
-                <div className="text-white font-medium text-sm">João Dev</div>
-                <div className="text-gray-400 text-xs">Retro Gamer</div>
+                <div className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300">
+                  <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    {user.email?.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-medium text-sm truncate">{user.email}</div>
+                    <div className="text-gray-400 text-xs">Retro Gamer</div>
+                  </div>
+                </div>
+                {!isDevMode && (
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center gap-2 px-3 py-2 mt-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-sm"
+                  >
+                    <LogOut size={16} />
+                    Sair
+                  </button>
+                )}
               </div>
-            </div>
+            ) : (
+              <button
+                onClick={() => onPageChange('library')}
+                className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-sm"
+              >
+                <LogIn size={16} />
+                Fazer Login
+              </button>
+            )}
           </div>
         </div>
       </aside>
@@ -184,11 +191,19 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-20 hover:w-64 transition-all duration-300 bg-gray-800 border-r border-gray-700 h-screen sticky top-0 group">
         <div className="p-4">
-          <div className="flex items-center justify-center group-hover:justify-start">
+          <div className="flex items-center justify-center group-hover:justify-start gap-3">
             <img 
               src="./logoimagetransp.png" 
               alt="RetroVault Logo" 
-              className="w-10 h-10 object-contain flex-shrink-0 group-hover:w-12 group-hover:h-12 transition-all duration-300"
+              className="w-10 h-10 object-contain flex-shrink-0 transition-all duration-300"
+            />
+            <img 
+              src="./logopixeltransparent.png" 
+              alt="RETROVAULT" 
+              className="h-6 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden group-hover:block"
+              style={{
+                filter: 'drop-shadow(1px 0 0 rgba(255, 255, 255, 0.9)) drop-shadow(-1px 0 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.9))'
+              }}
             />
           </div>
         </div>
@@ -200,7 +215,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
               onClick={() => handlePageChange(item.id)}
               className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 text-left group-hover:justify-start ${
                 currentPage === item.id
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-indigo-600 text-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
               }`}
             >
@@ -215,15 +230,41 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
         </nav>
 
         <div className="p-4 border-t border-gray-700">
-          <div className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300 group-hover:bg-gray-700 transition-colors">
-            <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
-              JD
+          {isDevMode && (
+            <div className="px-2 py-2 mb-3 bg-yellow-900/30 border border-yellow-600/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="text-yellow-400 text-xs font-semibold text-center">🔧 Dev Mode</div>
             </div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="text-white font-medium text-sm">João Dev</div>
-              <div className="text-gray-400 text-xs">Retro Gamer</div>
+          )}
+          {user ? (
+            <div>
+              <div className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300 group-hover:bg-gray-700 transition-colors">
+                <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                  {user.email?.charAt(0).toUpperCase()}
+                </div>
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-1 min-w-0">
+                  <div className="text-white font-medium text-sm truncate">{user.email}</div>
+                  <div className="text-gray-400 text-xs">Retro Gamer</div>
+                </div>
+              </div>
+              {!isDevMode && (
+                <button
+                  onClick={handleSignOut}
+                  className="w-full flex items-center gap-3 px-3 py-2 mt-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+                >
+                  <LogOut size={16} className="flex-shrink-0" />
+                  <span className="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Sair</span>
+                </button>
+              )}
             </div>
-          </div>
+          ) : (
+            <button
+              onClick={() => onPageChange('library')}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+            >
+              <LogIn size={16} className="flex-shrink-0" />
+              <span className="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Fazer Login</span>
+            </button>
+          )}
         </div>
       </aside>
     </>

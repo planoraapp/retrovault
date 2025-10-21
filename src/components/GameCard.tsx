@@ -34,11 +34,13 @@ export default function GameCard({ game, viewMode, onDownloadSave, onDeleteGame 
           {/* Capa */}
           <div className="flex-shrink-0">
             {game.coverImage ? (
-              <img
-                src={game.coverImage}
-                alt={game.gameName}
-                className="w-12 h-12 rounded-lg object-cover"
-              />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center p-1">
+                <img
+                  src={game.coverImage}
+                  alt={game.gameName}
+                  className="w-full h-full object-contain"
+                />
+              </div>
             ) : (
               <div className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center">
                 <ConsoleIcon consoleId={game.platform} size="sm" />
@@ -127,15 +129,15 @@ export default function GameCard({ game, viewMode, onDownloadSave, onDeleteGame 
   return (
     <div className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600 transition-colors group">
       {/* Capa do Jogo */}
-      <div className="aspect-[4/3] relative overflow-hidden">
+      <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-gray-700 to-gray-900">
         {game.coverImage ? (
           <img
             src={game.coverImage}
             alt={game.gameName}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex flex-col items-center justify-center">
+          <div className="w-full h-full flex flex-col items-center justify-center">
             <ConsoleIcon consoleId={game.platform} size="lg" />
             <div className="mt-2 text-xs text-gray-400 text-center px-2">
               {game.gameName}

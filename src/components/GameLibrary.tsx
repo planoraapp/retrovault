@@ -22,6 +22,19 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
   useEffect(() => {
     loadGames()
   }, [])
+  
+  // Placeholder: conectar com Firebase quando usuário estiver logado
+  // useEffect(() => {
+  //   const fetchFirebaseGames = async () => {
+  //     if (auth.currentUser) {
+  //       const games = await UploadService.getUserGames(auth.currentUser.uid)
+  //       if (games.length > 0) {
+  //         setGames(games)
+  //       }
+  //     }
+  //   }
+  //   fetchFirebaseGames()
+  // }, [])
 
   useEffect(() => {
     filterGames()
@@ -44,7 +57,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1r7y.jpg',
+          coverImage: 'https://retroachievements.org/Images/000222.png',
           lastPlayed: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['RPG', 'Time Travel', 'Square'],
           notes: 'Meu jogo favorito! História incrível e gameplay perfeito.'
@@ -61,7 +74,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8y.jpg',
+          coverImage: 'https://retroachievements.org/Images/054708.png',
           lastPlayed: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Metroidvania', 'Sci-Fi', 'Nintendo'],
           notes: 'O melhor Metroidvania já feito!'
@@ -78,7 +91,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1r9y.jpg',
+          coverImage: 'https://retroachievements.org/Images/007559.png',
           lastPlayed: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Platform', 'Classic', 'Nintendo'],
           notes: 'Jogando com meu filho!'
@@ -95,7 +108,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1ray.jpg',
+          coverImage: 'https://retroachievements.org/Images/051848.png',
           lastPlayed: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Platform', 'Speed', 'Sega'],
           notes: 'Clássico do Sonic com Tails!'
@@ -112,7 +125,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rby.jpg',
+          coverImage: 'https://retroachievements.org/Images/072390.png',
           lastPlayed: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['RPG', 'Fantasy', 'Square'],
           notes: 'Replay do clássico!'
@@ -129,7 +142,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rcy.jpg',
+          coverImage: 'https://retroachievements.org/Images/043749.png',
           lastPlayed: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Adventure', 'Fantasy', 'Nintendo'],
           notes: 'O melhor jogo de todos os tempos!'
@@ -146,7 +159,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rdy.jpg',
+          coverImage: 'https://retroachievements.org/Images/117104.png',
           lastPlayed: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['RPG', 'Pokémon', 'Nintendo'],
           notes: 'Nostalgia pura!'
@@ -163,7 +176,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rey.jpg',
+          coverImage: 'https://retroachievements.org/Images/060824.png',
           lastPlayed: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Fighting', 'Arcade', 'Capcom'],
           notes: 'Clássico dos arcades!'
@@ -180,7 +193,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rfy.jpg',
+          coverImage: 'https://retroachievements.org/Images/006154.png',
           lastPlayed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Beat em up', 'Action', 'Sega'],
           notes: 'Melhor beat em up do Mega Drive!'
@@ -197,7 +210,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             uploadDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
             downloadUrl: '#'
           }],
-          coverImage: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rgy.jpg',
+          coverImage: 'https://retroachievements.org/Images/003949.png',
           lastPlayed: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
           tags: ['Run and Gun', 'Action', 'Konami'],
           notes: 'Up, Up, Down, Down, Left, Right, Left, Right, B, A!'
@@ -278,7 +291,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto mb-4"></div>
           <p className="text-gray-400">Carregando biblioteca...</p>
         </div>
       </div>
@@ -302,7 +315,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 placeholder="Nome do jogo..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm"
+                className="w-full pl-9 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 text-sm"
               />
             </div>
           </div>
@@ -315,7 +328,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setSelectedPlatform('')}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
                   selectedPlatform === '' 
-                    ? 'bg-blue-600 text-white' 
+                    ? 'bg-indigo-600 text-white' 
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
               >
@@ -327,7 +340,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                   onClick={() => setSelectedPlatform(platform.id)}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm flex items-center gap-2 ${
                     selectedPlatform === platform.id 
-                      ? 'bg-blue-600 text-white' 
+                      ? 'bg-indigo-600 text-white' 
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
@@ -346,7 +359,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setSelectedTag('')}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
                   selectedTag === '' 
-                    ? 'bg-blue-600 text-white' 
+                    ? 'bg-indigo-600 text-white' 
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
               >
@@ -358,7 +371,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                   onClick={() => setSelectedTag(tag)}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
                     selectedTag === tag 
-                      ? 'bg-blue-600 text-white' 
+                      ? 'bg-indigo-600 text-white' 
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
@@ -376,7 +389,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setViewMode('grid')}
                 className={`flex-1 p-2 rounded-lg transition-colors text-sm ${
                   viewMode === 'grid' 
-                    ? 'bg-blue-600 text-white' 
+                    ? 'bg-indigo-600 text-white' 
                     : 'bg-gray-700 text-gray-400 hover:text-white'
                 }`}
               >
@@ -386,7 +399,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setViewMode('list')}
                 className={`flex-1 p-2 rounded-lg transition-colors text-sm ${
                   viewMode === 'list' 
-                    ? 'bg-blue-600 text-white' 
+                    ? 'bg-indigo-600 text-white' 
                     : 'bg-gray-700 text-gray-400 hover:text-white'
                 }`}
               >
@@ -446,7 +459,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             {onFolderUploadClick && (
               <button
                 onClick={onFolderUploadClick}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z" fill="currentColor"/>
@@ -458,10 +471,10 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
         </div>
 
         {/* Demonstração de Logos de Alta Qualidade */}
-        <div className="bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 border border-blue-700">
+        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
             🎮 Logos de Consoles de Alta Qualidade
-            <span className="text-sm bg-green-600 px-2 py-1 rounded-full">NOVO!</span>
+            <span className="text-sm bg-white/20 text-white px-2 py-1 rounded-full">NOVO!</span>
           </h3>
           <p className="text-gray-300 mb-4">Agora com logos oficiais SVG de alta qualidade, fundo transparente e escaláveis!</p>
           

@@ -24,10 +24,10 @@ const DashboardContent = ({ onUploadClick, onLibraryClick }: DashboardRankingsPr
   ]
 
   const statCards = [
-    { title: 'Total de Jogos', value: stats.totalGames, icon: Gamepad2, color: 'text-blue-400' },
-    { title: 'Saves Salvos', value: stats.totalSaves, icon: Upload, color: 'text-green-400' },
-    { title: 'Consoles', value: stats.totalConsoles, icon: Gamepad2, color: 'text-purple-400' },
-    { title: 'Armazenamento', value: `${stats.totalStorage}GB`, icon: Upload, color: 'text-orange-400' }
+    { title: 'Total de Jogos', value: stats.totalGames, icon: Gamepad2, color: 'text-white' },
+    { title: 'Saves Salvos', value: stats.totalSaves, icon: Upload, color: 'text-white' },
+    { title: 'Consoles', value: stats.totalConsoles, icon: Gamepad2, color: 'text-white' },
+    { title: 'Armazenamento', value: `${stats.totalStorage}GB`, icon: Upload, color: 'text-white' }
   ]
 
   // Simular carregamento de dados
@@ -123,7 +123,7 @@ const DashboardContent = ({ onUploadClick, onLibraryClick }: DashboardRankingsPr
           {/* Logo/Image Section */}
           <div className="md:col-span-5 flex items-center justify-center">
             <div className="w-full h-full flex items-center justify-center">
-              <div className="w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+              <div className="w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
                 <Gamepad2 className="w-16 h-16 md:w-24 md:h-24 text-white" />
               </div>
             </div>

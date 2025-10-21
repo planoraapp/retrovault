@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Layout from './components/Layout'
 import DashboardRankings from './components/DashboardRankings'
-import LandingPage from './pages/LandingPage'
 import DronefallPage from './pages/DronefallPage'
 import AchievementsSection from './components/AchievementsSection'
+import AuthModal from './components/AuthModal'
+import { useAuth } from './contexts/AuthContext'
 import SearchBar from './components/SearchBar'
 import PlatformFilter from './components/PlatformFilter'
 import SaveGrid from './components/SaveGrid'
@@ -16,13 +17,21 @@ import { sampleSaves } from './data/sample-saves'
 import type { Save, Platform, UploadFormData, GameLibraryItem } from './types'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing')
+  const [currentPage, setCurrentPage] = useState('dronefall')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
   const [isFolderUploadModalOpen, setIsFolderUploadModalOpen] = useState(false)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [saves, setSaves] = useState<Save[]>(sampleSaves)
   const [gameLibrary, setGameLibrary] = useState<GameLibraryItem[]>([])
+  
+  const { user } = useAuth()
+  
+  // Debug: Log quando a página mudar
+  useEffect(() => {
+    console.log('📄 Página atual:', currentPage);
+  }, [currentPage])
 
   const filteredSaves = useMemo(() => {
     let filtered = saves
@@ -64,17 +73,20 @@ function App() {
   }
 
   const handleEnterDashboard = () => {
-    setCurrentPage('library')
+    // MODO DESENVOLVIMENTO: Desabilitado temporariamente
+    // Acesso direto ao dashboard para testes
+    console.log('🚀 Navegando para dashboard');
+    setCurrentPage('dashboard')
   }
-
-  const handleNavigateToDronefall = () => {
-    setCurrentPage('dronefall')
+  
+  const handlePageChange = (page: string) => {
+    // MODO DESENVOLVIMENTO: Acesso livre a todas as páginas
+    console.log('🚀 Navegando para:', page);
+    setCurrentPage(page)
   }
 
   const renderPageContent = () => {
     switch (currentPage) {
-      case 'landing':
-        return <LandingPage onEnterDashboard={handleEnterDashboard} onNavigateToDronefall={handleNavigateToDronefall} />
       case 'dashboard':
         return (
           <DashboardRankings 
@@ -177,31 +189,41 @@ function App() {
     }
   }
 
-  // Se estiver na landing page ou dronefall page, não usar o Layout
-  if (currentPage === 'landing') {
-    return <LandingPage onEnterDashboard={handleEnterDashboard} onNavigateToDronefall={handleNavigateToDronefall} />
-  }
-
+  // Se estiver na dronefall page (landing page), não usar o Layout
   if (currentPage === 'dronefall') {
-    return <DronefallPage />
+    return (
+      <>
+        <DronefallPage onEnterDashboard={handleEnterDashboard} />
+        <AuthModal 
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+        />
+      </>
+    )
   }
 
   return (
-    <Layout currentPage={currentPage} onPageChange={setCurrentPage}>
-      {renderPageContent()}
-      <UploadModal
-        isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
-        onSave={handleSaveUpload}
-        platforms={platforms}
+    <>
+      <Layout currentPage={currentPage} onPageChange={handlePageChange}>
+        {renderPageContent()}
+        <UploadModal
+          isOpen={isUploadModalOpen}
+          onClose={() => setIsUploadModalOpen(false)}
+          onSave={handleSaveUpload}
+          platforms={platforms}
+        />
+        <FolderUploadModal
+          isOpen={isFolderUploadModalOpen}
+          onClose={() => setIsFolderUploadModalOpen(false)}
+          onUploadComplete={handleGameLibraryUpload}
+          platforms={platforms}
+        />
+      </Layout>
+      <AuthModal 
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
       />
-      <FolderUploadModal
-        isOpen={isFolderUploadModalOpen}
-        onClose={() => setIsFolderUploadModalOpen(false)}
-        onUploadComplete={handleGameLibraryUpload}
-        platforms={platforms}
-      />
-    </Layout>
+    </>
   )
 }
 

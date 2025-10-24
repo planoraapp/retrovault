@@ -86,11 +86,11 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
               <div className="flex-shrink-0">
                 <div className="h1-block">
                   <img 
-                    src="/logoimagetransp.png" 
+                    src="/logopixeltransparent.png" 
                     alt="RETROVAULT" 
                     className="h-8 w-auto"
                     style={{
-                      filter: 'drop-shadow(1px 0 0 rgba(255, 255, 255, 0.9)) drop-shadow(-1px 0 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.9))'
+                      filter: 'drop-shadow(2px 0 0 rgba(255, 255, 255, 1)) drop-shadow(-2px 0 0 rgba(255, 255, 255, 1)) drop-shadow(0 2px 0 rgba(255, 255, 255, 1)) drop-shadow(0 -2px 0 rgba(255, 255, 255, 1))'
                     }}
                   />
                 </div>

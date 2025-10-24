@@ -86,7 +86,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
               <div className="flex-shrink-0">
                 <div className="h1-block">
                   <img 
-                    src="/logopixeltransparent.png" 
+                    src="/logoimagetransp.png" 
                     alt="RETROVAULT" 
                     className="h-8 w-auto"
                     style={{

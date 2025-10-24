@@ -146,7 +146,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
                 loading="eager"
                 width="1440"
               style={{ 
-                zIndex: 1,
+                zIndex: 10,
                 filter: 'hue-rotate(180deg) saturate(1.2) brightness(0.8) contrast(1.1)',
                 mixBlendMode: 'multiply'
               }}
@@ -160,7 +160,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
                 loading="eager"
                 sizes="(max-width: 767px) 100vw, (max-width: 991px) 727.984375px, 939.984375px"
               style={{ 
-                zIndex: 2,
+                zIndex: 11,
                 filter: 'hue-rotate(200deg) saturate(1.3) brightness(0.9) contrast(1.2)',
                 mixBlendMode: 'overlay'
               }}
@@ -251,7 +251,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             alt="" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{
-              zIndex: 14,
+              zIndex: 50,
               opacity: 1
             }}
           />
@@ -262,7 +262,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             alt="" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{
-              zIndex: 15,
+              zIndex: 51,
               opacity: 1
             }}
           />

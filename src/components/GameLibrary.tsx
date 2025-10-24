@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Search, Filter, Grid, List, Download, Eye, Trash2 } from 'lucide-react'
-import { UploadService } from '../services/uploadService'
+import { Search, Grid, List } from 'lucide-react'
 import GameCard from './GameCard'
 import ConsoleIcon from './ConsoleIcon'
 import type { GameLibraryItem, Platform } from '../types'
@@ -249,7 +248,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
     setFilteredGames(filtered)
   }
 
-  const handleDownloadSave = async (game: GameLibraryItem, saveFile: any) => {
+  const handleDownloadSave = async (_game: GameLibraryItem, saveFile: any) => {
     try {
       // TODO: Implementar download real
       console.log('Downloading save:', saveFile.fileName)
@@ -302,12 +301,12 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
     <div className="flex flex-col lg:flex-row gap-6">
       {/* Barra lateral com filtros */}
       <div className="w-full lg:w-64 flex-shrink-0">
-        <div className="bg-gray-800 rounded-lg border border-gray-700 lg:sticky lg:top-4 h-[calc(100vh-2rem)] flex flex-col">
+        <div className="rounded-lg border border-gray-500 lg:sticky lg:top-4 h-[calc(100vh-2rem)] flex flex-col" style={{backgroundColor: '#1a1a1a'}}>
           <div className="p-4 border-b border-gray-700 flex-shrink-0">
             <h3 className="text-lg font-semibold text-white">Filtros</h3>
           </div>
           
-          <div className="flex-1 overflow-y-auto p-4 space-y-6">
+          <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
           
             {/* Busca */}
             <div>
@@ -319,7 +318,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 placeholder="Nome do jogo..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 text-sm"
+                className="w-full pl-9 pr-3 py-2 bg-gray-700 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 text-sm"
               />
             </div>
           </div>
@@ -332,8 +331,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setSelectedPlatform('')}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
                   selectedPlatform === '' 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    ? 'bg-gray-600 text-white' 
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
                 }`}
               >
                 Todas as plataformas
@@ -363,8 +362,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setSelectedTag('')}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm ${
                   selectedTag === '' 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    ? 'bg-gray-600 text-white' 
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
                 }`}
               >
                 Todas as tags
@@ -393,8 +392,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setViewMode('grid')}
                 className={`flex-1 p-2 rounded-lg transition-colors text-sm ${
                   viewMode === 'grid' 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'bg-gray-700 text-gray-400 hover:text-white'
+                    ? 'bg-gray-600 text-white' 
+                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-white'
                 }`}
               >
                 <Grid size={16} className="mx-auto" />
@@ -403,8 +402,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 onClick={() => setViewMode('list')}
                 className={`flex-1 p-2 rounded-lg transition-colors text-sm ${
                   viewMode === 'list' 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'bg-gray-700 text-gray-400 hover:text-white'
+                    ? 'bg-gray-600 text-white' 
+                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-white'
                 }`}
               >
                 <List size={16} className="mx-auto" />
@@ -459,7 +458,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-white mb-2">Minha Biblioteca</h1>
-              <p className="text-gray-400">Gerencie sua coleção de jogos retrô</p>
+              <p className="text-gray-400">Gerencie sua coleção de jogos</p>
             </div>
             {onFolderUploadClick && (
               <button
@@ -475,42 +474,6 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
           </div>
         </div>
 
-        {/* Demonstração de Logos de Alta Qualidade */}
-        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            🎮 Logos de Consoles de Alta Qualidade
-            <span className="text-sm bg-white/20 text-white px-2 py-1 rounded-full">NOVO!</span>
-          </h3>
-          <p className="text-gray-300 mb-4">Agora com logos oficiais SVG de alta qualidade, fundo transparente e escaláveis!</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { id: 'nes', name: 'Nintendo Entertainment System' },
-              { id: 'snes', name: 'Super Nintendo Entertainment System' },
-              { id: 'n64', name: 'Nintendo 64' },
-              { id: 'playstation', name: 'PlayStation' },
-              { id: 'mega-drive', name: 'Sega Genesis' },
-              { id: 'dreamcast', name: 'Sega Dreamcast' },
-              { id: 'game-boy', name: 'Game Boy' },
-              { id: 'gamecube', name: 'Nintendo GameCube' },
-              { id: 'atari-2600', name: 'Atari 2600' },
-              { id: 'neo-geo', name: 'Neo Geo' },
-              { id: 'saturn', name: 'Sega Saturn' },
-              { id: 'psp', name: 'PlayStation Portable' }
-            ].map(console => (
-              <div key={console.id} className="bg-gray-800 rounded-lg p-4 border border-gray-600">
-                <div className="flex items-center justify-center mb-3 h-12">
-                  <ConsoleIcon consoleId={console.id} size="lg" />
-                </div>
-                <p className="text-sm text-gray-300 font-medium text-center">{console.name}</p>
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-4 text-sm text-gray-400">
-            <p>✨ Logos oficiais • 🎨 Fundo transparente • 📱 Escaláveis • ⚡ Carregamento rápido</p>
-          </div>
-        </div>
 
         {/* Lista de Jogos */}
       {filteredGames.length === 0 ? (
@@ -544,6 +507,9 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
         </div>
       )}
       </div>
+      
+      {/* Background granular */}
+      <div className="noise-block"></div>
     </div>
   )
 }

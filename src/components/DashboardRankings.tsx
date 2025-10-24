@@ -123,7 +123,7 @@ const DashboardContent = ({ onUploadClick, onLibraryClick }: DashboardRankingsPr
           {/* Logo/Image Section */}
           <div className="md:col-span-5 flex items-center justify-center">
             <div className="w-full h-full flex items-center justify-center">
-              <div className="w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-gray-500 to-gray-400 rounded-full flex items-center justify-center">
                 <Gamepad2 className="w-16 h-16 md:w-24 md:h-24 text-white" />
               </div>
             </div>
@@ -216,6 +216,9 @@ export default function DashboardRankings({ onUploadClick, onLibraryClick }: Das
     <div className="space-y-6">
       {/* Content - apenas Rankings */}
       <RankingsContent />
+      
+      {/* Background granular */}
+      <div className="noise-block"></div>
     </div>
   )
 }

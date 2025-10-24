@@ -142,6 +142,9 @@ export default function FirebaseTest() {
           <li>• Configure Storage para arquivos de save</li>
         </ul>
       </div>
+      
+      {/* Background granular */}
+      <div className="noise-block"></div>
     </div>
   );
 }

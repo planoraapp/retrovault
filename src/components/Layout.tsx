@@ -9,7 +9,7 @@ interface LayoutProps {
 
 export default function Layout({ children, currentPage, onPageChange }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 flex">
+    <div className="min-h-screen dashboard-background text-gray-100 flex">
       <Sidebar currentPage={currentPage} onPageChange={onPageChange} />
       
       <main className="flex-1 flex flex-col md:ml-0">

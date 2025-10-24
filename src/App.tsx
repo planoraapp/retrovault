@@ -141,6 +141,9 @@ function App() {
               <h3 className="text-xl font-semibold text-white mb-2">Lista de jogos será implementada em breve</h3>
               <p className="text-gray-400">Esta seção mostrará todos os jogos da sua coleção organizados por plataforma.</p>
             </div>
+            
+            {/* Background granular */}
+            <div className="noise-block"></div>
           </div>
         )
       case 'saves':
@@ -153,6 +156,9 @@ function App() {
               <h3 className="text-xl font-semibold text-white mb-2">Lista de saves será implementada em breve</h3>
               <p className="text-gray-400">Esta seção mostrará todos os seus saves organizados por data, plataforma e jogo.</p>
             </div>
+            
+            {/* Background granular */}
+            <div className="noise-block"></div>
           </div>
         )
       case 'settings':
@@ -165,6 +171,9 @@ function App() {
               <h3 className="text-xl font-semibold text-white mb-2">Configurações serão implementadas em breve</h3>
               <p className="text-gray-400">Esta seção permitirá configurar preferências de conta, notificações e sincronização.</p>
             </div>
+            
+            {/* Background granular */}
+            <div className="noise-block"></div>
           </div>
         )
       case 'achievements':

@@ -717,6 +717,24 @@ body {
   filter: contrast(0.4) brightness(0.7) saturate(0.5); /* Filtros mais agressivos para reduzir pontos brancos */
 }
 
+/* Dashboard Background - Background granular para o dashboard */
+.dashboard-background {
+  background-color: #1a1a1a; /* Fundo de fallback */
+  background-image: url('/bgrepeat.png?v=20250922');
+  background-repeat: repeat;
+  background-size: auto; /* Mantém a proporção original como na página Dronefall */
+  background-attachment: fixed;
+}
+
+/* Scrollbar Hide - Oculta a barra de scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
 /* Hero Text Block Styles */
 .hero-text-block {
   font-family: 'Press Start 2P', monospace;

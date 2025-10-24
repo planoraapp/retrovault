@@ -136,7 +136,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
                 onClick={() => handlePageChange(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors text-left ${
                   currentPage === item.id
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-gray-600 text-white'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                 }`}
               >
@@ -157,7 +157,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
             {user ? (
               <div>
                 <div className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300">
-                  <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-7 h-7 bg-gradient-to-br from-gray-500 to-gray-400 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     {user.email?.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1">
@@ -189,7 +189,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       </aside>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-20 hover:w-64 transition-all duration-300 bg-gray-800 border-r border-gray-700 h-screen sticky top-0 group">
+      <aside className="hidden md:flex flex-col w-20 hover:w-64 transition-all duration-300 bg-gray-800 border-r border-gray-500 h-screen sticky top-0 group">
         <div className="p-4">
           <div className="flex items-center justify-center group-hover:justify-start gap-3">
             <img 

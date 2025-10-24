@@ -158,6 +158,9 @@ export default function AchievementsSection() {
           </div>
         </div>
       )}
+      
+      {/* Background granular */}
+      <div className="noise-block"></div>
     </div>
   );
 }

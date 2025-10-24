@@ -24,7 +24,7 @@ export default function Dashboard({ onUploadClick, onLibraryClick }: DashboardPr
   ]
 
   const statCards = [
-    { title: 'Total de Jogos', value: stats.totalGames, icon: Gamepad2, color: 'text-blue-400' },
+    { title: 'Total de Jogos', value: stats.totalGames, icon: Gamepad2, color: 'text-gray-300' },
     { title: 'Saves Salvos', value: stats.totalSaves, icon: Save, color: 'text-green-400' },
     { title: 'Consoles', value: stats.totalConsoles, icon: HardDrive, color: 'text-purple-400' },
     { title: 'Armazenamento', value: `${stats.totalStorage}GB`, icon: HardDrive, color: 'text-orange-400' }

@@ -140,7 +140,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
               
               {/* Background Sky */}
               <img 
-                src="/bgsky.png" 
+                src="/bgsky.png?v=2" 
               alt="" 
               className="image-part is--background absolute inset-0 w-full h-full object-cover"
                 loading="eager"
@@ -154,7 +154,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             
               {/* Front Image */}
             <img 
-                src="/retronew1.png" 
+                src="/retronew1.png?v=2" 
               alt="" 
               className="image-part is--front absolute inset-0 w-full h-full object-cover"
                 loading="eager"
@@ -168,7 +168,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             
               {/* City 1 */}
             <img 
-                src="/mountainbg.png" 
+                src="/mountainbg.png?v=2" 
               alt="" 
               className="image-part is--city-1 absolute inset-0 w-full h-full object-cover"
                 loading="eager"
@@ -181,7 +181,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             
               {/* City 2 */}
             <img 
-              src="/image1city2_1.webp" 
+              src="/image1city2_1.png?v=2" 
               alt="" 
               className="image-part is--city-2 absolute inset-0 w-full h-full object-cover"
                 loading="eager"
@@ -247,7 +247,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
 
           {/* Retronew2 - Segundo Plano */}
           <img 
-            src="/retronew2.png" 
+            src="/retronew2.png?v=2" 
             alt="" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{
@@ -293,7 +293,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
               <div className="flex flex-col items-center text-center h-full">
                 <div className="flex-1 flex items-center justify-center mb-4">
-                  <img src="/safetyimg.png" alt="Segurança" className="object-contain security-glow icon-hover-effect" style={{width: 'auto', height: '120px'}} />
+                  <img src="/safetyimg.png?v=2" alt="Segurança" className="object-contain security-glow icon-hover-effect" style={{width: 'auto', height: '120px'}} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white">Segurança</h3>
                 <p className="text-white/90 font-medium">Armazenamento criptografado e backup automático para proteger seus saves.</p>
@@ -302,7 +302,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
               <div className="flex flex-col items-center text-center h-full">
                 <div className="flex-1 flex items-center justify-center mb-4">
-                  <img src="/acessibilityimg.png" alt="Acessibilidade" className="object-contain accessibility-pulse icon-hover-effect" style={{width: 'auto', height: '156px'}} />
+                  <img src="/acessibilityimg.png?v=2" alt="Acessibilidade" className="object-contain accessibility-pulse icon-hover-effect" style={{width: 'auto', height: '156px'}} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white">Acessibilidade</h3>
                 <p className="text-white/90 font-medium">Acesse seus saves de qualquer dispositivo, a qualquer momento.</p>
@@ -311,7 +311,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
               <div className="flex flex-col items-center text-center h-full">
                 <div className="flex-1 flex items-center justify-center mb-4">
-                  <img src="/organizationimg.png" alt="Organização" className="object-contain organization-shine icon-hover-effect" style={{width: 'auto', height: '156px'}} />
+                  <img src="/organizationimg.png?v=2" alt="Organização" className="object-contain organization-shine icon-hover-effect" style={{width: 'auto', height: '156px'}} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white">Organização</h3>
                 <p className="text-white/90 font-medium">Catálogo inteligente que organiza seus jogos por console e progresso.</p>

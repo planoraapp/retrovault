@@ -1,2 +1,0 @@
-# Deploy Test
-Teste de deploy - $(Get-Date)

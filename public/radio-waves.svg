@@ -1,0 +1,33 @@
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ondas de rádio animadas -->
+  
+  <!-- Primeira onda -->
+  <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(147, 51, 234, 0.8)" stroke-width="3">
+    <animate attributeName="r" values="15;40;60" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0.4;0" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Segunda onda -->
+  <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(147, 51, 234, 0.7)" stroke-width="3">
+    <animate attributeName="r" values="15;40;60" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0.3;0" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Terceira onda -->
+  <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(147, 51, 234, 0.6)" stroke-width="3">
+    <animate attributeName="r" values="15;40;60" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.2;0" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Quarta onda -->
+  <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(147, 51, 234, 0.5)" stroke-width="3">
+    <animate attributeName="r" values="15;40;60" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.2;0" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Quinta onda -->
+  <circle cx="100" cy="60" r="15" fill="none" stroke="rgba(147, 51, 234, 0.4)" stroke-width="3">
+    <animate attributeName="r" values="15;40;60" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.1;0" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

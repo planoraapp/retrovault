@@ -102,7 +102,7 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
                 <a href="#mission" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Missão</a>
                 <a href="#equipment" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Funcionalidades</a>
                 <a href="#completed" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Estatísticas</a>
-                <a href="#league" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Biblioteca</a>
+                <button onClick={handleNavigateToLibrary} className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Biblioteca</button>
               </div>
             </div>
 
@@ -214,13 +214,13 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 onClick={handleEnterDashboard}
-                className="bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                className="custom-button"
               >
                 Começar Agora
               </button>
               <button 
                 onClick={handleNavigateToLibrary}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                className="custom-button-secondary"
               >
                 Ver Biblioteca
               </button>
@@ -290,20 +290,32 @@ const DronefallPage: React.FC<DronefallPageProps> = ({ onEnterDashboard }) => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
-              <div className="text-4xl mb-4">💾</div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Segurança</h3>
-              <p className="text-white/90 font-medium">Armazenamento criptografado e backup automático para proteger seus saves.</p>
+            <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
+              <div className="flex flex-col items-center text-center h-full">
+                <div className="flex-1 flex items-center justify-center mb-4">
+                  <img src="/safetyimg.png" alt="Segurança" className="object-contain security-glow icon-hover-effect" style={{width: 'auto', height: '120px'}} />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-white">Segurança</h3>
+                <p className="text-white/90 font-medium">Armazenamento criptografado e backup automático para proteger seus saves.</p>
+              </div>
             </div>
-            <div className="bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
-              <div className="text-4xl mb-4">🌐</div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Acessibilidade</h3>
-              <p className="text-white/90 font-medium">Acesse seus saves de qualquer dispositivo, a qualquer momento.</p>
+            <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
+              <div className="flex flex-col items-center text-center h-full">
+                <div className="flex-1 flex items-center justify-center mb-4">
+                  <img src="/acessibilityimg.png" alt="Acessibilidade" className="object-contain accessibility-pulse icon-hover-effect" style={{width: 'auto', height: '156px'}} />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-white">Acessibilidade</h3>
+                <p className="text-white/90 font-medium">Acesse seus saves de qualquer dispositivo, a qualquer momento.</p>
+              </div>
             </div>
-            <div className="bg-black/40 backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
-              <div className="text-4xl mb-4">🎮</div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Organização</h3>
-              <p className="text-white/90 font-medium">Catálogo inteligente que organiza seus jogos por console e progresso.</p>
+            <div className="bg-transparent backdrop-blur-sm p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
+              <div className="flex flex-col items-center text-center h-full">
+                <div className="flex-1 flex items-center justify-center mb-4">
+                  <img src="/organizationimg.png" alt="Organização" className="object-contain organization-shine icon-hover-effect" style={{width: 'auto', height: '156px'}} />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-white">Organização</h3>
+                <p className="text-white/90 font-medium">Catálogo inteligente que organiza seus jogos por console e progresso.</p>
+              </div>
             </div>
           </div>
         </div>

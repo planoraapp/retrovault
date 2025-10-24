@@ -578,6 +578,128 @@ body {
     inset 0 0 50px rgba(0, 0, 0, 0.1);
 }
 
+/* Custom Button - Efeito de profundidade como no desenho */
+.custom-button {
+  background-color: white !important;
+  color: black !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  border: 2px solid black !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 
+    0 0 0 2px black,
+    6px 6px 0 0 white !important;
+  transform: translateY(-2px) !important;
+}
+
+.custom-button:hover {
+  transform: translateY(-4px) !important;
+  background-color: #f8f8f8 !important;
+  border-color: black !important;
+  box-shadow: 
+    0 0 0 2px black,
+    8px 8px 0 0 #f0f0f0 !important;
+}
+
+.custom-button:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 
+    0 0 0 2px black,
+    4px 4px 0 0 white !important;
+}
+
+/* Custom Button Secondary - Botão "Ver Biblioteca" com cores invertidas do "Começar Agora" */
+.custom-button-secondary {
+  background-color: black !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  border: 2px solid white !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 
+    0 0 0 2px white,
+    6px 6px 0 0 white !important;
+  transform: translateY(-2px) !important;
+}
+
+.custom-button-secondary:hover {
+  transform: translateY(-4px) !important;
+  background-color: #333 !important;
+  color: white !important;
+  border-color: white !important;
+  box-shadow: 
+    0 0 0 2px white,
+    8px 8px 0 0 #f0f0f0 !important;
+}
+
+.custom-button-secondary:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 
+    0 0 0 2px white,
+    4px 4px 0 0 white !important;
+}
+
+/* Animações para os ícones dos boxes */
+
+/* Animação sutil de brilho para o ícone de segurança */
+@keyframes securityGlow {
+  0%, 100% { 
+    filter: brightness(1) drop-shadow(0 0 2px rgba(255, 215, 0, 0.1)); 
+  }
+  50% { 
+    filter: brightness(1.1) drop-shadow(0 0 6px rgba(255, 215, 0, 0.3)); 
+  }
+}
+
+/* Animação de brilho para o ícone de organização */
+@keyframes organizationShine {
+  0% { 
+    filter: brightness(1) drop-shadow(0 0 3px rgba(147, 51, 234, 0.3)); 
+  }
+  50% { 
+    filter: brightness(1.15) drop-shadow(0 0 8px rgba(147, 51, 234, 0.5)); 
+  }
+  100% { 
+    filter: brightness(1) drop-shadow(0 0 3px rgba(147, 51, 234, 0.3)); 
+  }
+}
+
+/* Classes para aplicar as animações */
+.security-glow {
+  animation: securityGlow 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.accessibility-pulse {
+  position: relative;
+  background-image: url('/radio-waves.svg');
+  background-size: 250px 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(1.2) contrast(1.1);
+}
+
+.organization-shine {
+  animation: organizationShine 2.8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Efeito hover adicional para todos os ícones */
+.icon-hover-effect:hover {
+  animation-play-state: paused;
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
 /* Noise Block - Efeito de ruído granulado (técnica do site original) */
 .noise-block {
   position: fixed;

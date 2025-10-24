@@ -302,11 +302,15 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
     <div className="flex flex-col lg:flex-row gap-6">
       {/* Barra lateral com filtros */}
       <div className="w-full lg:w-64 flex-shrink-0">
-        <div className="bg-gray-800 rounded-lg p-4 border border-gray-700 lg:sticky lg:top-4">
-          <h3 className="text-lg font-semibold text-white mb-4">Filtros</h3>
+        <div className="bg-gray-800 rounded-lg border border-gray-700 lg:sticky lg:top-4 h-[calc(100vh-2rem)] flex flex-col">
+          <div className="p-4 border-b border-gray-700 flex-shrink-0">
+            <h3 className="text-lg font-semibold text-white">Filtros</h3>
+          </div>
           
-          {/* Busca */}
-          <div className="mb-6">
+          <div className="flex-1 overflow-y-auto p-4 space-y-6">
+          
+            {/* Busca */}
+            <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Buscar</label>
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -320,8 +324,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             </div>
           </div>
 
-          {/* Filtro de plataforma */}
-          <div className="mb-6">
+            {/* Filtro de plataforma */}
+            <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Plataforma</label>
             <div className="space-y-2">
               <button
@@ -351,8 +355,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             </div>
           </div>
 
-          {/* Filtro por tags */}
-          <div className="mb-6">
+            {/* Filtro por tags */}
+            <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Tags</label>
             <div className="space-y-2">
               <button
@@ -381,8 +385,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             </div>
           </div>
 
-          {/* Controles de visualização */}
-          <div className="mb-6">
+            {/* Controles de visualização */}
+            <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Visualização</label>
             <div className="flex gap-2">
               <button
@@ -408,8 +412,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             </div>
           </div>
 
-          {/* Botão limpar filtros */}
-          <div className="mb-4">
+            {/* Botão limpar filtros */}
+            <div>
             <button
               onClick={() => {
                 setSearchTerm('')
@@ -422,8 +426,8 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
             </button>
           </div>
 
-          {/* Estatísticas */}
-          <div className="border-t border-gray-700 pt-4">
+            {/* Estatísticas */}
+            <div className="border-t border-gray-700 pt-4">
             <h4 className="text-sm font-medium text-gray-300 mb-2">Estatísticas</h4>
             <div className="space-y-1 text-xs text-gray-400">
               <div className="flex justify-between">
@@ -442,6 +446,7 @@ export default function GameLibrary({ platforms, onFolderUploadClick }: GameLibr
                 <span>Armazenamento:</span>
                 <span className="text-white">{(stats.totalSize / 1024 / 1024).toFixed(1)}MB</span>
               </div>
+            </div>
             </div>
           </div>
         </div>

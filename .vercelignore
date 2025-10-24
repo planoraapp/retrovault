@@ -28,14 +28,6 @@ coverage
 .vscode
 .idea
 
-# Arquivos de imagem desnecessários (manter apenas os essenciais)
-*.jpg
-*.jpeg
-*.png
-!public/icons/consoles/*.png
-!public/logo*.png
-!public/vite.svg
-
 # Scripts de desenvolvimento
 scripts/download-console-icons.js
 scripts/change-logo-color.js
